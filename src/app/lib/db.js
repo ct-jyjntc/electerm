@@ -4,9 +4,9 @@
  */
 
 const { appPath, defaultUserName } = require('../common/app-props')
-const { safeEncrypt, safeDecrypt } = require('./safe-storage')
+// const { safeEncrypt, safeDecrypt } = require('./safe-storage')
 
-const encOpts = { enc: safeEncrypt, dec: safeDecrypt }
+const encOpts = undefined // { enc: safeEncrypt, dec: safeDecrypt }
 
 if (process.versions.node < '22.0.0') {
   const { createDb } = require('./nedb')

@@ -7,17 +7,18 @@ import parseJsonSafe from './parse-json-safe'
 // Values without this prefix are treated as legacy plaintext.
 const ENC_PREFIX = 'enc1:'
 
-let _encKey = null
+// let _encKey = null
 
 function getKey () {
-  if (_encKey !== null) return _encKey
-  try {
-    // window.pre is set by pre.js before the store is used; runSync is synchronous IPC
-    _encKey = (window.pre && window.pre.runSync && window.pre.runSync('getStorageKey')) || ''
-  } catch (e) {
-    _encKey = ''
-  }
-  return _encKey
+  return false
+  // if (_encKey !== null) return _encKey
+  // try {
+  //   // window.pre is set by pre.js before the store is used; runSync is synchronous IPC
+  //   _encKey = (window.pre && window.pre.runSync && window.pre.runSync('getStorageKey')) || ''
+  // } catch (e) {
+  //   _encKey = ''
+  // }
+  // return _encKey
 }
 
 function encrypt (str) {
