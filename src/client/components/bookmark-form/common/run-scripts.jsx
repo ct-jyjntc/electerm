@@ -15,11 +15,10 @@ const e = window.translate
 export default function renderRunScripts () {
   function renderItem (field, i, add, remove) {
     return (
-      <>
+      <FormItem key={`run-script-${field.key}`} noStyle>
         <Space
           align='baseline'
           className='width-100'
-          key={field.key}
         >
           <FormItem
             label=''
@@ -56,7 +55,7 @@ export default function renderRunScripts () {
             />
           </Space.Compact>
         </Space>
-      </>
+      </FormItem>
     )
   }
 

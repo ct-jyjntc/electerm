@@ -125,9 +125,8 @@ export default function TreeListItem (props) {
       return null
     }
     return (
-      <Tooltip title={e('openAll')}>
+      <Tooltip key='open-all-tree' title={e('openAll')}>
         <FolderOpenOutlined
-          key='open-all-tree'
           onClick={handleOpenAll}
           className='pointer open-all-icon tree-control-btn'
         />

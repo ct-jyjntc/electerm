@@ -675,6 +675,7 @@ export default class ItemListTree extends Component {
     }
     return (
       <TreeListItem
+        key={`${isGroup ? 'group' : 'item'}-${parentId || 'root'}-${item.id}`}
         {...itemProps}
       />
     )

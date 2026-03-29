@@ -43,13 +43,14 @@ export default function renderAuth (props) {
         max: 13000, message: '13000 chars max'
       }]}
     >
-      <FormItem noStyle name={key}>
+      <FormItem key={`${key}-input`} noStyle name={key}>
         <TextArea
           placeholder={e(desc)}
           autoSize={{ minRows: 1 }}
         />
       </FormItem>
       <Upload
+        key={`${key}-upload`}
         beforeUpload={commonBeforeUpload(key)}
         fileList={[]}
       >

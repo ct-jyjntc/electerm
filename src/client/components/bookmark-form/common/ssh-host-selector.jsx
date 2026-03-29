@@ -48,7 +48,7 @@ export default function SshHostSelector ({ ips = [], useIp, form, onBlur, onPast
             </div>
             )
       }
-      <FormItem noStyle name='host'>
+      <FormItem key='host-input' noStyle name='host'>
         <InputAutoFocus
           name='host'
           onBlur={props.onBlur}

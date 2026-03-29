@@ -173,6 +173,7 @@ export default function renderSshTunnels (props) {
       >
         <Space.Compact>
           <FormItem
+            key='ssh-tunnel-remote-host'
             name='sshTunnelRemoteHost'
             label=''
             required
@@ -182,6 +183,7 @@ export default function renderSshTunnels (props) {
             />
           </FormItem>
           <FormItem
+            key='ssh-tunnel-remote-port'
             label=''
             name='sshTunnelRemotePort'
             required
@@ -252,6 +254,7 @@ export default function renderSshTunnels (props) {
         >
           <Space.Compact>
             <FormItem
+              key='ssh-tunnel-local-host'
               name='sshTunnelLocalHost'
               label=''
               required
@@ -261,6 +264,7 @@ export default function renderSshTunnels (props) {
               />
             </FormItem>
             <FormItem
+              key='ssh-tunnel-local-port'
               label=''
               name='sshTunnelLocalPort'
               required

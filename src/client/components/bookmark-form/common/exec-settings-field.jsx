@@ -20,13 +20,14 @@ export default function ExecSettingsField () {
           label={label}
         >
           <Space.Compact className='width-100'>
-            <FormItem noStyle name={label}>
+            <FormItem key={`${platform}-exec`} noStyle name={label}>
               <Input
                 placeholder={`${platformCapitalized} exec path`}
                 maxLength={500}
               />
             </FormItem>
             <FormItem
+              key={`${platform}-exec-args`}
               noStyle
               name={`exec${platformCapitalized}Args`}
             >

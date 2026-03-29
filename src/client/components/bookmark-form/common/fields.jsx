@@ -49,6 +49,7 @@ const commonRenderTypes = new Set([
  */
 export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
   const { type, name, label, rules, valuePropName, hidden, normalize } = item
+  const itemKey = name || `${type}-${index}`
 
   // Render simple AntD controls directly inside Form.Item
   if (commonRenderTypes.has(type)) {
@@ -105,7 +106,7 @@ export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
     }
     return (
       <FormItem
-        key={name}
+        key={itemKey}
         {...formItemProps}
       >
         {control}
@@ -116,15 +117,15 @@ export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
   // Render complex/custom components directly (no extra wrapper component)
   switch (type) {
     case 'alert':
-      return <Alert key={name} {...item.props} />
+      return <Alert key={itemKey} {...item.props} />
     case 'info':
-      return <Alert key={name} type='info' {...item.props} />
+      return <Alert key={itemKey} type='info' {...item.props} />
     case 'warning':
-      return <Alert key={name} type='warning' {...item.props} />
+      return <Alert key={itemKey} type='warning' {...item.props} />
     case 'categorySelect':
       return (
         <CategorySelect
-          key={name}
+          key={itemKey}
           bookmarkGroups={ctxProps.bookmarkGroups || []}
           form={ctxProps.form}
           name={item.name}
@@ -132,17 +133,17 @@ export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
         />
       )
     case 'proxy':
-      return <ProxyField key={name} bookmarks={ctxProps.bookmarks} />
+      return <ProxyField key={itemKey} bookmarks={ctxProps.bookmarks} />
     case 'x11':
-      return <X11Field key={name} form={form} />
+      return <X11Field key={itemKey} form={form} />
     case 'sshTunnels':
-      return <SshTunnels key={name} form={form} formData={ctxProps.formData} />
+      return <SshTunnels key={itemKey} form={form} formData={ctxProps.formData} />
     case 'sshAgent':
-      return <SshAgent key={name} />
+      return <SshAgent key={itemKey} />
     case 'connectionHopping':
       return (
         <ConnectionHopping
-          key={name}
+          key={itemKey}
           form={form}
           formData={ctxProps.formData || {}}
           trim={ctxProps.trim}
@@ -150,19 +151,19 @@ export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
         />
       )
     case 'terminalBackground':
-      return <TerminalBackgroundField key={name} />
+      return <TerminalBackgroundField key={itemKey} />
     case 'execSettings':
-      return <ExecSettingsField key={name} />
+      return <ExecSettingsField key={itemKey} />
     case 'profileItem':
-      return <ProfileItem key={name} store={ctxProps.store} profileFilter={item.profileFilter} />
+      return <ProfileItem key={itemKey} store={ctxProps.store} profileFilter={item.profileFilter} />
     case 'quickCommands':
-      return <Fragment key={name}>{useQuickCmds(form, ctxProps.formData || {})}</Fragment>
+      return <Fragment key={itemKey}>{useQuickCmds(form, ctxProps.formData || {})}</Fragment>
     case 'runScripts':
-      return <Fragment key={name}>{renderRunScripts()}</Fragment>
+      return <Fragment key={itemKey}>{renderRunScripts()}</Fragment>
     case 'serialPathSelector':
       return (
         <SerialPathSelector
-          key={name}
+          key={itemKey}
           serials={ctxProps.serials}
           loaddingSerials={ctxProps.loaddingSerials}
           store={ctxProps.store}
@@ -172,7 +173,7 @@ export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
     case 'sshHostSelector':
       return (
         <SshHostSelector
-          key={name}
+          key={itemKey}
           ips={ctxProps.ips || []}
           useIp={ctxProps.useIp}
           form={ctxProps.form}
@@ -185,7 +186,7 @@ export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
     case 'sshAuthTypeSelector':
       return (
         <SshAuthTypeSelector
-          key={name}
+          key={itemKey}
           authType={ctxProps.authType}
           handleChangeAuthType={ctxProps.onChangeAuthType}
           {...item.props}
@@ -194,7 +195,7 @@ export function renderFormItem (item, formItemLayout, form, ctxProps, index) {
     case 'sshAuthSelector':
       return (
         <SshAuthSelector
-          key={name}
+          key={itemKey}
           store={ctxProps.store}
           form={form}
           authType={ctxProps.authType}

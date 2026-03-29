@@ -295,7 +295,9 @@ export default function FormRenderer ({ config, props }) {
       : (config.fields || [])
     content = (
       <div className='pd1x'>
-        {fields.map((f, index) => renderFormItem(f, config.layout, form, ctxProps, index))}
+        {React.Children.toArray(
+          fields.map((f, index) => renderFormItem(f, config.layout, form, ctxProps, index))
+        )}
       </div>
     )
   } else {
@@ -305,7 +307,9 @@ export default function FormRenderer ({ config, props }) {
       forceRender: true,
       children: (
         <div className='pd1x'>
-          {(tab.fields || []).map((f, index) => renderFormItem(f, config.layout, form, ctxProps, index))}
+          {React.Children.toArray(
+            (tab.fields || []).map((f, index) => renderFormItem(f, config.layout, form, ctxProps, index))
+          )}
         </div>
       )
     }))
