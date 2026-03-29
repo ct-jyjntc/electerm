@@ -24,7 +24,9 @@
 
 [![Vercel OSS Program](https://vercel.com/oss/program-badge.svg)](https://vercel.com/oss)
 
-sshterm is an open-sourced SSH/SFTP client with terminal and file manager support (linux, mac, win).
+sshterm is a focused SSH workspace for desktop: terminal, SFTP file management, bookmark sync, jump hosts, SSH tunnels, and quick commands.
+
+This fork intentionally removes features unrelated to SSH workflows, so the product surface stays smaller and easier to maintain.
 
 For experienced developers, you may try the web app version running in browser(including mobile device): [electerm-web](https://github.com/electerm/electerm-web) or [docker image for electerm-web](https://github.com/electerm/electerm-web-docker)
 
@@ -36,6 +38,7 @@ Online demo: [https://electerm-demo.html5beta.com](https://electerm-demo.html5be
 
 ## Features
 
+- Focused on SSH workflows instead of being a multi-protocol toolbox
 - Works as an SSH terminal and SFTP file manager
 - Support Window 7+(X64/ARM64), Mac OS 10.15+(x64/arm64), Linux(x64/arm64), even old Linux with glibc 2.17+ like UOS/Kylin/Ubuntu 18.04 etc
 - Global hotkey to toggle window visibility (similar to guake, default is `ctrl + 2`)
@@ -51,8 +54,23 @@ Online demo: [https://electerm-demo.html5beta.com](https://electerm-demo.html5be
 - Global/session proxy.
 - UI/terminal theme
 - Sync bookmarks/themes to github/gitee secret gist
+- Quick commands for repeatable SSH operations
+- SSH config import, jump hosts, and SSH tunnels
 - Deep link support: Open connections with URLs like `ssh://user@host:22` - see [Deep link support wiki](https://github.com/electerm/electerm/wiki/Deep-link-support)
 - Command line usage: check [wiki](https://github.com/electerm/electerm/wiki/Command-line-usage)
+
+## Scope
+
+sshterm keeps features directly related to SSH work:
+
+- SSH terminal sessions
+- SFTP and remote file editing
+- SSH config import
+- Proxy / jump host / tunnel workflows
+- Bookmark sync
+- Quick commands
+
+This fork removes non-SSH product areas such as AI, MCP, RDP, VNC, Spice, Telnet, Serial, FTP, widgets, workspace management, and update UI.
 
 ## Download
 
@@ -149,6 +167,15 @@ npm run lint
 # code format fix
 npm run fix
 ```
+
+## Dev pitfalls
+
+- `npm run app` only launches the Electron shell. In dev mode you also need `npm start`, otherwise the window may not load because port `5570` is not serving the frontend.
+- For packaged app changes, rebuilding the installer requires more than `electron-builder`. Run `npm run b` first so `work/app` and the final `app.asar` input actually include your latest main-process code.
+- Windows packaging may leave `dist/win-unpacked` locked if `sshterm.exe` or `electron.exe` is still running. Kill those processes before rebuilding installers.
+- The app data path for installed builds should follow Electron `userData`. If you rename the app, avoid hardcoded `electerm` path joins in main-process code.
+- `DATA_PATH=...` is useful for isolating local verification, but a healthy installed build must also start without `DATA_PATH`.
+- Some packaging scripts still print publish-related warnings during local builds. Verify the actual artifact output instead of assuming every warning means the package failed.
 
 ## Test
 

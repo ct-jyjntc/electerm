@@ -24,7 +24,9 @@
 
 [![Vercel OSS Program](https://vercel.com/oss/program-badge.svg)](https://vercel.com/oss)
 
-sshterm 是一个开源 SSH/SFTP 客户端，包含终端和文件管理功能(linux, mac, win)。
+sshterm 是一个更聚焦的 SSH 工作台：提供终端、SFTP 文件管理、书签同步、跳板机、SSH 隧道和快捷命令。
+
+这个 fork 有意删除了与 SSH 无直接关系的功能，目标是降低产品复杂度和后续维护成本。
 
 有经验的开发者也可以尝试运行于浏览器(支持移动设备)的web app版本: [electerm-web](https://github.com/electerm/electerm-web) 或者 [docker image for electerm-web](https://github.com/electerm/electerm-web-docker)
 
@@ -36,6 +38,7 @@ sshterm 是一个开源 SSH/SFTP 客户端，包含终端和文件管理功能(l
 
 ## 功能特性
 
+- 聚焦 SSH 工作流，而不是多协议大而全工具
 - 支持 SSH 终端、本地和远程文件管理、SFTP 文件传输
 - 支持Window 7+(X64/ARM64), Mac OS 10.15+(x64/arm64), Linux(x64/arm64), 以及Linux with glibc 2.17+ like UOS/Kylin/Ubuntu 18.04 etc
 - 全局快捷键切换隐藏显示窗口(类似guake, 默认快捷键`ctrl + 2`)
@@ -51,8 +54,23 @@ sshterm 是一个开源 SSH/SFTP 客户端，包含终端和文件管理功能(l
 - 支持代理服务器.
 - 支持主题
 - 支持同步书签和主题等数据到 github/gitee 私人 gist
+- 支持快捷命令，方便重复 SSH 操作
+- 支持 SSH config 导入、跳板机和 SSH 隧道
 - 支持命令行使用: 请参阅[wiki](https://github.com/electerm/electerm/wiki/Command-line-usage)
 - 深度链接支持: 使用 `ssh://user@host:22` 等 URL 打开连接 - 详见 [深度链接支持 wiki](https://github.com/electerm/electerm/wiki/Deep-link-support)
+
+## 功能边界
+
+sshterm 保留与 SSH 直接相关的能力：
+
+- SSH 终端会话
+- SFTP 和远程文件编辑
+- SSH config 导入
+- 代理 / 跳板机 / 隧道
+- 书签同步
+- 快捷命令
+
+这个 fork 已删除这些非 SSH 功能：AI、MCP、RDP、VNC、Spice、Telnet、Serial、FTP、widgets、workspace、升级 UI。
 
 ## 下载
 
@@ -149,6 +167,15 @@ npm run lint
 # code format fix
 npm run fix
 ```
+
+## 开发易踩坑
+
+- `npm run app` 只会启动 Electron 外壳；开发模式还需要同时执行 `npm start`，否则 `5570` 端口没有前端页面，窗口可能起不来。
+- 打安装包前不能只跑 `electron-builder`。先执行 `npm run b`，确保 `work/app` 和最终 `app.asar` 输入已经包含你最新的主进程代码。
+- Windows 下如果 `sshterm.exe`、`electerm.exe` 或 `electron.exe` 还在运行，`dist/win-unpacked` 很容易被锁住，导致重新打包失败。
+- 安装版默认数据目录应基于 Electron 的 `userData`，不要在主进程里继续手写 `electerm` 路径拼接，改名后二开特别容易踩坑。
+- `DATA_PATH=...` 适合做隔离验证，但健康的安装版必须在不设置 `DATA_PATH` 的情况下也能正常启动。
+- 本地打包时一些脚本可能仍会打印发布相关 warning，要以实际产物是否生成、安装后是否可启动为准，不要只看最后一行日志。
 
 ## 测试
 

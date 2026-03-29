@@ -1,7 +1,7 @@
 {
   "name": "sshterm",
   "version": "3.0.6",
-  "description": "sshterm: SSH/SFTP client (linux, mac, win)",
+  "description": "sshterm: focused SSH workspace with terminal, SFTP, sync, tunnels, jump hosts, and quick commands",
   "main": "app.js",
   "bin": "npm/electerm",
   "scripts": {
