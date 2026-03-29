@@ -16,10 +16,10 @@ const DATA_ENC_ID = 'userConfig'
 // Prefix added to stored strings to mark them as encrypted
 const ENC_PREFIX = 'enc:'
 
-function createDb (appPath, defaultUserName, { enc, dec } = {}) {
+function createDb (appPath, defaultUserName, appName = 'electerm', { enc, dec } = {}) {
   const db = {}
 
-  const appDataPath = process.env.DATA_PATH || resolve(appPath, 'electerm')
+  const appDataPath = process.env.DATA_PATH || resolve(appPath, appName)
 
   if (!fs.existsSync(appDataPath)) {
     fs.mkdirSync(appDataPath, { recursive: true })

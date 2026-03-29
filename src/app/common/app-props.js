@@ -36,6 +36,7 @@ function getDataPath () {
 }
 
 module.exports = {
+  appName: app.getName() || 'electerm',
   ...getDataPath(),
   sshKeysPath: resolve(
     app.getPath('home'),
