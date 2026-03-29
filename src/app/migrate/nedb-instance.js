@@ -5,8 +5,8 @@
  * during the pre-migration upgrade phase.
  */
 
-const { appPath, defaultUserName } = require('../common/app-props')
+const { appPath, defaultUserName, appName } = require('../common/app-props')
 const { createDb } = require('../lib/nedb')
 
-module.exports = createDb(appPath, defaultUserName)
+module.exports = createDb(appPath, defaultUserName, appName)
 // exports: { dbAction, tables }

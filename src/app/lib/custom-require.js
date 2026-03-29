@@ -2,9 +2,10 @@ const path = require('path')
 const { downloadPackage } = require('./npm')
 
 exports.customRequire = async (moduleName, options = {}) => {
+  const { appPath, appName } = require('../common/app-props')
   const customModulesFolderPath = options.customModulesFolderPath ||
     process.env.CUSTOM_MODULES_FOLDER_PATH ||
-    path.resolve(require('../common/app-props').appPath, 'electerm', 'custom-modules')
+    path.resolve(appPath, appName, 'custom-modules')
   const isCustomModule = options.isCustomModule || false
   const downloadModule = options.downloadModule !== false
 

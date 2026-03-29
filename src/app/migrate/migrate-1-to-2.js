@@ -4,11 +4,11 @@
 
 const { resolve } = require('path')
 const { existsSync, renameSync } = require('fs')
-const { appPath, defaultUserName } = require('../common/app-props')
+const { appPath, defaultUserName, appName } = require('../common/app-props')
 const log = require('../common/log')
 
 const reso = (name) => {
-  return resolve(appPath, 'electerm', 'users', defaultUserName, `electerm.${name}.nedb`)
+  return resolve(appPath, appName, 'users', defaultUserName, `electerm.${name}.nedb`)
 }
 
 const tables = [
@@ -52,9 +52,9 @@ async function migrate () {
   // Use plain sqlite (no enc/dec) for migration writes: safeStorage encryption
   // is not reliable across restarts in the IPC/migration context. The app's
   // normal read/write path will encrypt data on the next user-triggered write.
-  const { appPath, defaultUserName } = require('../common/app-props')
+  const { appPath, defaultUserName, appName } = require('../common/app-props')
   const { createDb: createSqlite } = require('../lib/sqlite')
-  const { dbAction: sqliteDbAction } = createSqlite(appPath, defaultUserName)
+  const { dbAction: sqliteDbAction } = createSqlite(appPath, defaultUserName, appName)
   const {
     checkDbUpgrade,
     doUpgrade
