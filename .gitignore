@@ -116,6 +116,7 @@ dist
 .vscode
 /test-results
 /tmp/
+/release-assets/
 
 ftp-root
 *.asc
