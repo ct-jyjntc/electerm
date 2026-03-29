@@ -115,6 +115,7 @@ dist
 /*.gz
 .vscode
 /test-results
+/tmp/
 
 ftp-root
 *.asc
