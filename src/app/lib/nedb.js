@@ -19,7 +19,7 @@ const ENC_PREFIX = 'enc:'
 function createDb (appPath, defaultUserName, appName = 'electerm', { enc, dec } = {}) {
   const db = {}
 
-  const appDataPath = process.env.DATA_PATH || resolve(appPath, appName)
+  const appDataPath = process.env.DATA_PATH || appPath
 
   if (!fs.existsSync(appDataPath)) {
     fs.mkdirSync(appDataPath, { recursive: true })

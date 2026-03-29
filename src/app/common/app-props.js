@@ -9,7 +9,7 @@ const installSrc = require('../lib/install-src')
 function getDataPath () {
   const appName = app.getName() || 'electerm'
   const defaultValue = {
-    appPath: app.getPath('appData'),
+    appPath: app.getPath('userData'),
     isPortable: false
   }
   if (!constants.isWin) {
@@ -24,7 +24,7 @@ function getDataPath () {
     )
   ) {
     return {
-      appPath: exePath,
+      appPath: p,
       exePath,
       isPortable: true
     }
