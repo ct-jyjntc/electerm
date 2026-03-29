@@ -117,6 +117,8 @@ dist
 /test-results
 /tmp/
 /release-assets/
+/release-assets-fixed/
+/dist-fixed/
 
 ftp-root
 *.asc
