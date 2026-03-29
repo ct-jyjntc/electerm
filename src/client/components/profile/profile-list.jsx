@@ -6,7 +6,6 @@ import List from '../setting-panel/list'
 import { PlusOutlined } from '@ant-design/icons'
 import classnames from 'classnames'
 import highlight from '../common/highlight'
-import ProfileTransport from './profile-transport'
 import {
   settingMap
 } from '../../common/constants'
@@ -55,12 +54,6 @@ export default class ProfileList extends List {
         </div>
         {this.renderDelBtn(item)}
       </div>
-    )
-  }
-
-  renderTransport = () => {
-    return (
-      <ProfileTransport />
     )
   }
 

@@ -2,25 +2,17 @@
  * Config-driven bookmark form (drop-in replacement)
  */
 import { PureComponent } from 'react'
-import { Radio, Button } from 'antd'
+import { Radio } from 'antd'
 import {
   settingMap,
   connectionMap,
-  terminalSerialType,
-  terminalWebType,
-  terminalRdpType,
-  terminalVncType,
   terminalLocalType,
-  terminalTelnetType,
-  terminalFtpType,
-  newBookmarkIdPrefix,
-  terminalSpiceType
+  newBookmarkIdPrefix
 } from '../../common/constants'
 import { createTitleWithTag } from '../../common/create-title'
-import { LoadingOutlined, BookOutlined, RobotOutlined } from '@ant-design/icons'
+import { LoadingOutlined, BookOutlined } from '@ant-design/icons'
 import sessionConfig from './config/session-config'
 import renderForm from './render-form'
-import AIBookmarkForm from './ai-bookmark-form'
 import './bookmark-form.styl'
 
 const e = window.translate
@@ -29,23 +21,12 @@ export default class BookmarkIndex2 extends PureComponent {
   constructor (props) {
     super(props)
     let initType = props.formData.type
-    if (![
-      terminalTelnetType,
-      terminalWebType,
-      terminalLocalType,
-      terminalSerialType,
-      terminalRdpType,
-      terminalVncType,
-      terminalFtpType,
-      terminalSpiceType
-    ].includes(initType)) {
+    if (![terminalLocalType].includes(initType)) {
       initType = connectionMap.ssh
     }
-    const v = this.getInitAiModeState()
     this.state = {
-      ready: v,
-      bookmarkType: initType,
-      aiMode: v
+      ready: false,
+      bookmarkType: initType
     }
   }
 
@@ -59,33 +40,12 @@ export default class BookmarkIndex2 extends PureComponent {
     clearTimeout(this.timer)
   }
 
-  getInitAiModeState () {
-    const v = window.et.openBookmarkWithAIMode
-    if (v !== true) {
-      return false
-    }
-    delete window.et.openBookmarkWithAIMode
-    return true
-  }
-
   handleChange = (e) => {
     this.setState({ bookmarkType: e.target.value })
   }
 
-  handleCancelAiMode = () => {
-    this.setState({ aiMode: false })
-  }
-
-  handleToggleAIMode = () => {
-    if (window.store.aiConfigMissing()) {
-      window.store.toggleAIConfig()
-      return
-    }
-    this.setState(prev => ({ aiMode: !prev.aiMode }))
-  }
-
   renderTypes (bookmarkType, isNew, keys) {
-    if (!isNew || this.state.aiMode) return null
+    if (!isNew) return null
     return (
       <Radio.Group
         buttonStyle='solid'
@@ -112,35 +72,8 @@ export default class BookmarkIndex2 extends PureComponent {
     )
   }
 
-  renderAIButton (isNew) {
-    if (!isNew || this.state.aiMode) {
-      return null
-    }
-    return (
-      <Button
-        size='small'
-        className='mg2l create-ai-btn'
-        icon={<RobotOutlined />}
-        onClick={this.handleToggleAIMode}
-      >
-        {e('createBookmarkByAI')}
-      </Button>
-    )
-  }
-
-  renderAiForm () {
-    return (
-      <AIBookmarkForm
-        onCancel={this.handleCancelAiMode}
-      />
-    )
-  }
-
   renderForm () {
-    const { bookmarkType, aiMode } = this.state
-    if (aiMode) {
-      return this.renderAiForm()
-    }
+    const { bookmarkType } = this.state
     return renderForm(bookmarkType, this.props)
   }
 
@@ -168,7 +101,6 @@ export default class BookmarkIndex2 extends PureComponent {
           </span>
           {this.renderTitle(formData, isNew)}
           {this.renderTypes(bookmarkType, isNew, keys)}
-          {this.renderAIButton(isNew)}
         </div>
         {this.renderForm()}
       </div>

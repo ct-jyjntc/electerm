@@ -61,16 +61,6 @@ export default Store => {
     store.openSettingModal()
   }
 
-  Store.prototype.onNewSshAI = function () {
-    const { store } = window
-    if (store.aiConfigMissing()) {
-      store.toggleAIConfig()
-      return
-    }
-    window.et.openBookmarkWithAIMode = true
-    store.onNewSsh()
-  }
-
   Store.prototype.confirmExit = function (type) {
     const { store } = window
     let mod = null

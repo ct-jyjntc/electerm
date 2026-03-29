@@ -4,7 +4,7 @@
     </a>
 </h1>
 
-# electerm [![Tweet](https://badgers.space/badge/Tweet/Tweet/social)](https://twitter.com/intent/tweet?text=Open%20sourced%20terminal%2Fssh%2Fsftp%20client(linux%2C%20mac%2C%20win)&url=https%3A%2F%2Fgithub.com%2Felecterm%2Felecterm&hashtags=electerm,ssh,terminal,sftp)
+# sshterm [![Tweet](https://badgers.space/badge/Tweet/Tweet/social)](https://twitter.com/intent/tweet?text=Open%20sourced%20terminal%2Fssh%2Fsftp%20client(linux%2C%20mac%2C%20win)&url=https%3A%2F%2Fgithub.com%2Felecterm%2Felecterm&hashtags=electerm,ssh,terminal,sftp)
 
 [![GitHub version](https://badgers.space/github/release/electerm/electerm?corner_radius=m)](https://github.com/electerm/electerm/releases)
 [![Build Status](https://github.com/electerm/electerm/actions/workflows/mac-test-1.yml/badge.svg)](https://github.com/electerm/electerm/actions)
@@ -24,7 +24,7 @@
 
 [![Vercel OSS Program](https://vercel.com/oss/program-badge.svg)](https://vercel.com/oss)
 
-开源终端/ssh/telnet/serialport/RDP/VNC/Spice/sftp/ftp客户端(linux, mac, win)。
+sshterm 是一个开源 SSH/SFTP 客户端，包含终端和文件管理功能(linux, mac, win)。
 
 有经验的开发者也可以尝试运行于浏览器(支持移动设备)的web app版本: [electerm-web](https://github.com/electerm/electerm-web) 或者 [docker image for electerm-web](https://github.com/electerm/electerm-web-docker)
 
@@ -36,7 +36,7 @@
 
 ## 功能特性
 
-- 支持ssh,telnet,serialport,RDP,VNC,Spice,本地和远程文件管理，sftp/ftp文件传输，以及作为本地终端使用
+- 支持 SSH 终端、本地和远程文件管理、SFTP 文件传输
 - 支持Window 7+(X64/ARM64), Mac OS 10.15+(x64/arm64), Linux(x64/arm64), 以及Linux with glibc 2.17+ like UOS/Kylin/Ubuntu 18.04 etc
 - 全局快捷键切换隐藏显示窗口(类似guake, 默认快捷键`ctrl + 2`)
 - 多平台支持(linux, mac, win)
@@ -49,14 +49,10 @@
 - 支持透明窗口(Mac, win).
 - 支持设置终端背景图片.
 - 支持代理服务器.
-- 支持预设快捷命令
 - 支持主题
-- 支持同步书签等数据到github/gitee私人gist
-- 支持快速输入命令到一个或者多个终端
-- AI助手集成（支持[DeepSeek](https://www.deepseek.com)、OpenAI等AI API），协助命令建议、脚本编写、以及解释所选终端内容
-- MCP (Model Context Protocol) 组件，用于AI助手和外部工具集成 - 详见 [MCP Widget Usage Guide](https://github.com/electerm/electerm/wiki/MCP-Widget-Usage-Guide)
+- 支持同步书签和主题等数据到 github/gitee 私人 gist
 - 支持命令行使用: 请参阅[wiki](https://github.com/electerm/electerm/wiki/Command-line-usage)
-- 深度链接支持: 使用 `telnet://192.168.2.31:34554` 或 `ssh://user@host:22` 等URL打开连接 - 详见 [深度链接支持 wiki](https://github.com/electerm/electerm/wiki/Deep-link-support)
+- 深度链接支持: 使用 `ssh://user@host:22` 等 URL 打开连接 - 详见 [深度链接支持 wiki](https://github.com/electerm/electerm/wiki/Deep-link-support)
 
 ## 下载
 
@@ -94,13 +90,6 @@ npm i -g electerm
 # for macOS, it will open the drag to install panel
 
 ```
-
-## 升级
-
-- 自动升级: 点击新版本的升级按钮.
-- 下载: 重新下载最新版安装.
-- Npm: 如果是从npm安装 再次运行`npm i -g electerm` 即可.
-- 如果从Linux发行版软件商店或者Snap安装，可能有自动升级机制.
 
 ## 已知问题
 

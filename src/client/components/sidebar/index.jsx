@@ -5,12 +5,9 @@ import {
   PictureOutlined,
   PlusCircleOutlined,
   SettingOutlined,
-  UpCircleOutlined,
-  BarsOutlined,
-  AppstoreOutlined,
   ThunderboltOutlined
 } from '@ant-design/icons'
-import { Tooltip, Popover } from 'antd'
+import { Popover } from 'antd'
 import SideBarPanel from './sidebar-panel'
 import TransferList from './transfer-list'
 import MenuBtn from '../sys-menu/menu-btn'
@@ -30,7 +27,6 @@ const e = window.translate
 export default function Sidebar (props) {
   const {
     height,
-    upgradeInfo,
     settingTab,
     settingItem,
     isSyncingSetting,
@@ -42,8 +38,7 @@ export default function Sidebar (props) {
     transferTab,
     showModal,
     showInfoModal,
-    sidebarPanelTab,
-    openWidgetsModal
+    sidebarPanelTab
   } = props
 
   const { store } = window
@@ -82,32 +77,19 @@ export default function Sidebar (props) {
     }
   }
 
-  const handleShowUpgrade = () => {
-    window.store.upgradeInfo.showUpgradeModal = true
-  }
-
   const {
     onNewSsh,
     openSetting,
     openAbout,
     openSettingSync,
     openTerminalThemes,
-    toggleBatchOp,
     setLeftSidePanelWidth
   } = store
-  const {
-    showUpgradeModal,
-    upgradePercent,
-    checkingRemoteVersion,
-    shouldUpgrade
-  } = upgradeInfo
   const showSetting = showModal === modals.setting
-  const showBatchOp = showModal === modals.batchOps
   const settingActive = showSetting && settingTab === settingMap.setting && settingItem.id === 'setting-common'
   const syncActive = showSetting && settingTab === settingMap.setting && settingItem.id === 'setting-sync'
   const themeActive = showSetting && settingTab === settingMap.terminalThemes
   const bookmarksActive = showSetting && settingTab === settingMap.bookmarks
-  const widgetsActive = showSetting && settingTab === settingMap.widgets
   const sideProps = openedSideBar
     ? {
         className: 'sidebar-list',
@@ -191,19 +173,6 @@ export default function Sidebar (props) {
           />
         </SideIcon>
         <SideIcon
-          title={e('batchOp')}
-          active={showBatchOp}
-        >
-          <BarsOutlined className='iblock font20 control-icon' onClick={toggleBatchOp} />
-        </SideIcon>
-        <SideIcon
-          title={e('widgets')}
-          active={widgetsActive}
-        >
-          <AppstoreOutlined className='iblock font20 control-icon' onClick={openWidgetsModal} />
-        </SideIcon>
-
-        <SideIcon
           title={e('about')}
           active={showInfoModal}
         >
@@ -212,25 +181,6 @@ export default function Sidebar (props) {
             onClick={openAbout}
           />
         </SideIcon>
-        {
-          !checkingRemoteVersion && !showUpgradeModal && shouldUpgrade
-            ? (
-              <Tooltip
-                title={`${e('upgrading')} ${upgradePercent || 0}%`}
-                placement='right'
-              >
-                <div
-                  className='control-icon-wrap'
-                >
-                  <UpCircleOutlined
-                    className='iblock font18 control-icon upgrade-icon'
-                    onClick={handleShowUpgrade}
-                  />
-                </div>
-              </Tooltip>
-              )
-            : null
-        }
       </div>
       <SidePanel
         sideProps={sideProps}

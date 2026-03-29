@@ -15,7 +15,6 @@ import TabQuickCommands from './tab-quick-commands'
 import TabSettings from './tab-settings'
 import TabThemes from './tab-themes'
 import TabProfiles from './tab-profiles'
-import TabWidgets from './tab-widgets'
 
 const e = window.translate
 
@@ -39,7 +38,7 @@ export default auto(function SettingModalWrap (props) {
       shouldConfirmDel: tabsShouldConfirmDel.includes(settingTab),
       list: settingSidebarList
     }
-    const { bookmarks, bookmarkGroups, widgetInstances } = store
+    const { bookmarks, bookmarkGroups } = store
     const formProps = {
       store,
       formData: settingItem,
@@ -51,9 +50,8 @@ export default auto(function SettingModalWrap (props) {
       ]),
       bookmarkGroups,
       bookmarks,
-      widgetInstancesLength: widgetInstances.length,
-      serials: store.serials,
-      loaddingSerials: store.loaddingSerials
+      serials: [],
+      loaddingSerials: false
     }
     const treeProps = {
       ...props0,
@@ -93,11 +91,6 @@ export default auto(function SettingModalWrap (props) {
       {
         key: settingMap.profiles,
         label: e(settingMap.profiles),
-        children: null
-      },
-      {
-        key: settingMap.widgets,
-        label: <>{e(settingMap.widgets)} <sup>Beta</sup></>,
         children: null
       }
     ]
@@ -142,13 +135,6 @@ export default auto(function SettingModalWrap (props) {
           settingTab={settingTab}
         />
         <TabProfiles
-          listProps={props0}
-          settingItem={settingItem}
-          formProps={formProps}
-          store={store}
-          settingTab={settingTab}
-        />
-        <TabWidgets
           listProps={props0}
           settingItem={settingItem}
           formProps={formProps}

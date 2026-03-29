@@ -18,8 +18,6 @@ import { getLocalFileInfo, getRemoteFileInfo, getFolderFromFilePath } from './fi
 import {
   typeMap, maxSftpHistory, paneMap,
   fileTypeMap,
-  terminalSerialType,
-  terminalFtpType,
   unexpectedPacketErrorDesc,
   sftpRetryInterval
 } from '../../common/constants'
@@ -261,9 +259,7 @@ export default class Sftp extends Component {
   isActive () {
     const { currentBatchTabId, pane, sshSftpSplitView } = this.props
     const { tab } = this.props
-    const isFtp = tab.type === terminalFtpType
-
-    return (currentBatchTabId === tab.id && (pane === paneMap.fileManager || sshSftpSplitView)) || isFtp
+    return currentBatchTabId === tab.id && (pane === paneMap.fileManager || sshSftpSplitView)
   }
 
   updateKeyword = (keyword, type) => {
@@ -550,7 +546,7 @@ export default class Sftp extends Component {
 
   shouldRenderRemote = () => {
     const { props } = this
-    return props.tab?.host && props.tab?.type !== terminalSerialType
+    return !!props.tab?.host
   }
 
   initLocalAll = () => {

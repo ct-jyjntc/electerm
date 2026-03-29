@@ -7,7 +7,7 @@ import shortcutsDefaultsGen from './shortcuts-defaults'
  */
 export function getKeysTakenData () {
   const { store } = window
-  const { config, quickCommands } = store
+  const { config, quickCommands = [] } = store
   const { shortcuts = {} } = config
 
   // Get shortcuts defaults

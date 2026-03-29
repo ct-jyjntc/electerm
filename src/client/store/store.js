@@ -7,7 +7,6 @@ import loadDataExtend from './load-data'
 import dbUpgradeExtend from './db-upgrade'
 import eventExtend from './event'
 import syncExtend from './sync'
-import appUpgradeExtend from './app-upgrade'
 import bookmarkGroupExtend from './bookmark-group'
 import bookmarkExtend from './bookmark'
 import commonExtend from './common'
@@ -21,17 +20,12 @@ import tabExtend from './tab'
 import uiThemeExtend from './ui-theme'
 import terminalThemeExtend from './terminal-theme'
 import transferHistoryExtend from './transfer-history'
-import batchInputHistory from './batch-input-history'
 import transferExtend from './transfer-list'
 import addressBookmarkExtend from './address-bookmark'
-import widgetsExtend from './widgets'
-import mcpHandlerExtend from './mcp-handler'
-import workspaceExtend from './workspace'
 import isColorDark from '../common/is-color-dark'
 import { getReverseColor } from '../common/reverse-color'
 import { uniq } from 'lodash-es'
 import deepCopy from 'json-deep-copy'
-import getBrand from '../components/ai/get-brand'
 import {
   settingMap,
   terminalSshConfigType,
@@ -96,20 +90,7 @@ class Store {
         !window.store.config.useSystemTitleBar
   }
 
-  get batchInputSelectedTabIds () {
-    return Array.from(window.store._batchInputSelectedTabIds)
-  }
-
   get rightPanelTitle () {
-    const {
-      rightPanelTab,
-      config: {
-        baseURLAI
-      }
-    } = window.store
-    if (rightPanelTab === 'ai') {
-      return getBrand(baseURLAI).brand || 'Custom AI Model'
-    }
     return createTitle(window.store.currentTab)
   }
 
@@ -125,7 +106,7 @@ class Store {
     const {
       type
     } = currentTab
-    if (type === 'web' || type === 'rdp' || type === 'vnc' || type === 'spice') {
+    if (type && type !== 'ssh' && type !== 'local') {
       return false
     }
     return currentTab.sshSftpSplitView ||
@@ -177,7 +158,6 @@ class Store {
   get terminalCommandSuggestions () {
     const { store } = window
     const historyCommands = Array.from(store.terminalCommandHistory.keys())
-    const batchInputCommands = store.batchInputs || []
     const quickCommands = (store.quickCommands || []).reduce(
       (p, q) => {
         return [
@@ -187,11 +167,9 @@ class Store {
       },
       []
     )
-
-    // Return raw commands
     return {
       history: historyCommands,
-      batch: batchInputCommands,
+      batch: [],
       quick: quickCommands
     }
   }
@@ -289,7 +267,6 @@ loadDataExtend(Store)
 eventExtend(Store)
 dbUpgradeExtend(Store)
 syncExtend(Store)
-appUpgradeExtend(Store)
 bookmarkGroupExtend(Store)
 bookmarkExtend(Store)
 commonExtend(Store)
@@ -303,11 +280,7 @@ tabExtend(Store)
 terminalThemeExtend(Store)
 uiThemeExtend(Store)
 transferHistoryExtend(Store)
-batchInputHistory(Store)
 transferExtend(Store)
 addressBookmarkExtend(Store)
-widgetsExtend(Store)
-mcpHandlerExtend(Store)
-workspaceExtend(Store)
 
 export const StateStore = Store

@@ -1,8 +1,6 @@
 import {
   settingSyncId,
-  settingShortcutsId,
   settingTerminalId,
-  settingAiId,
   settingPasswordsId
 } from '../common/constants'
 
@@ -14,16 +12,8 @@ export default () => ([
     title: e('terminal')
   },
   {
-    id: settingShortcutsId,
-    title: e('settingShortcuts')
-  },
-  {
     id: settingSyncId,
     title: e('settingSync')
-  },
-  {
-    id: settingAiId,
-    title: 'AI'
   },
   {
     id: settingPasswordsId,

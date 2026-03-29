@@ -108,9 +108,6 @@ export async function addTabFromCommandLine (store, opts) {
   ) {
     window.initFolder = options.initFolder
   }
-  if (options && options.batchOp) {
-    window.store.runBatchOp(options.batchOp)
-  }
 }
 
 export default (Store) => {
@@ -118,20 +115,13 @@ export default (Store) => {
     const { store } = window
     const onStartSessions = store.config.onStartSessions
 
-    // If onStartSessions is a string, it's a workspace ID
-    if (typeof onStartSessions === 'string' && onStartSessions) {
-      store.loadWorkspace(onStartSessions)
-    } else {
-      // Otherwise, it's an array of bookmark IDs
-      const arr = Array.isArray(onStartSessions) ? onStartSessions : []
-      for (const s of arr) {
-        store.onSelectBookmark(s)
-      }
-      if (!arr.length && store.config.initDefaultTabOnStart) {
-        store.initFirstTab()
-      }
+    const arr = Array.isArray(onStartSessions) ? onStartSessions : []
+    for (const s of arr) {
+      store.onSelectBookmark(s)
     }
-
+    if (!arr.length && store.config.initDefaultTabOnStart) {
+      store.initFirstTab()
+    }
     store.confirmLoad()
     const { initTime, loadTime } = window.pre.runSync('getLoadTime')
     if (loadTime) {
@@ -206,9 +196,6 @@ export default (Store) => {
       },
       1000
     )
-    if (store.config.checkUpdateOnStart) {
-      store.onCheckUpdate(false)
-    }
   }
   Store.prototype.initCommandLine = async function () {
     const opts = await window.pre.runGlobalAsync('initCommandLine')

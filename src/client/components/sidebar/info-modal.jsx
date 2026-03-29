@@ -10,7 +10,7 @@ import {
   BugOutlined,
   HeartOutlined
 } from '@ant-design/icons'
-import { Tabs, Button } from 'antd'
+import { Tabs } from 'antd'
 import Modal from '../common/modal'
 import Link from '../common/external-link'
 import LogoElem from '../common/logo-elem'
@@ -21,7 +21,6 @@ import {
   packInfo,
   infoTabs
 } from '../../common/constants'
-import { checkSkipSrc } from '../../common/check-skip-src'
 import './info.styl'
 
 const e = window.translate
@@ -29,30 +28,6 @@ const e = window.translate
 export default auto(function InfoModal (props) {
   const handleChangeTab = key => {
     window.store.infoModalTab = key
-  }
-
-  const renderCheckUpdate = () => {
-    if (window.et.isWebApp || checkSkipSrc(props.installSrc)) {
-      return null
-    }
-    const {
-      onCheckUpdate
-    } = window.store
-    const {
-      upgradeInfo
-    } = props
-    const onCheckUpdating = upgradeInfo.checkingRemoteVersion || upgradeInfo.upgrading
-    return (
-      <p className='mg1b mg2t'>
-        <Button
-          type='primary'
-          loading={onCheckUpdating}
-          onClick={() => onCheckUpdate(true)}
-        >
-          {e('checkForUpdate')}
-        </Button>
-      </p>
-    )
   }
 
   const renderParsed = (obj, depth = 0) => {
@@ -218,7 +193,6 @@ export default auto(function InfoModal (props) {
           <p className='mg1b'>
             <InfoCircleOutlined /> <b className='mg1r'>{window.store.installSrc}</b>
           </p>
-          {renderCheckUpdate()}
         </>
       )
     },

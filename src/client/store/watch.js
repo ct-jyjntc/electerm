@@ -9,10 +9,8 @@ import {
   sftpDefaultSortSettingKey,
   checkedKeysLsKey,
   expandedKeysLsKey,
-  resolutionsLsKey,
   localAddrBookmarkLsKey,
   syncServerDataKey,
-  aiChatHistoryKey,
   cmdHistoryKey
 } from '../common/constants'
 import * as ls from '../common/safe-local-storage'
@@ -78,11 +76,6 @@ export default store => {
     window[`watch${name}`].start()
   }
 
-  autoRun(async () => {
-    ls.setItemJSON(resolutionsLsKey, store.resolutions)
-    return store.resolutions
-  }).start()
-
   autoRun(() => {
     if (!store.showModal) {
       store.focus()
@@ -140,11 +133,6 @@ export default store => {
   }).start()
 
   autoRun(() => {
-    ls.safeSetItemJSON(aiChatHistoryKey, store.aiChatHistory)
-    return store.aiChatHistory
-  }).start()
-
-  autoRun(() => {
     const history = store.terminalCommandHistory
     // Save in new format: array of {cmd, count, lastUseTime}
     const data = Array.from(history.entries()).map(([cmd, info]) => ({
@@ -157,7 +145,6 @@ export default store => {
   }).start()
 
   autoRun(() => {
-    store.updateBatchInputSelectedTabIds()
     const tabs = store.getTabs()
     const { activeTabId } = store
     const tab = tabs.find(t => t.id === activeTabId)

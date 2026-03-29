@@ -223,7 +223,7 @@ export function shortcutExtend (Cls) {
     const len = keys.length
 
     if (this.term) {
-      const qmMatch = window.store.quickCommands.find(d => d.shortcut === r)
+      const qmMatch = (window.store.quickCommands || []).find(d => d.shortcut === r)
       if (qmMatch) {
         window.store.runQuickCommandItem(qmMatch.id)
         return false

@@ -1,6 +1,5 @@
 const express = require('express')
 const { Sftp } = require('./session-sftp')
-const { Ftp } = require('./session-ftp')
 const {
   sftp,
   transfer,
@@ -10,7 +9,6 @@ const {
   cleanAllSessions
 } = require('./remote-common')
 const { Transfer } = require('./transfer')
-const { Transfer: FtpTransfer } = require('./ftp-transfer')
 const app = express()
 const log = require('../common/log')
 const appDec = require('./app-wrap')
@@ -261,8 +259,7 @@ if (type === 'rdp') {
 
       if (action === 'sftp-new') {
         const { id, terminalId, type } = msg
-        const Cls = type === 'ftp' ? Ftp : Sftp
-        sftp(id, new Cls({
+        sftp(id, new Sftp({
           uid: id,
           terminalId,
           type
@@ -313,14 +310,13 @@ if (type === 'rdp') {
       const { action } = msg
 
       if (action === 'transfer-new') {
-        const { sftpId, id, isFtp } = msg
+        const { sftpId, id } = msg
         const opts = Object.assign({}, msg, {
           sftp: sftp(sftpId).sftp,
           sftpId,
           ws
         })
-        const Cls = isFtp ? FtpTransfer : Transfer
-        transfer(id, sftpId, new Cls(opts))
+        transfer(id, sftpId, new Transfer(opts))
       } else if (action === 'transfer-func') {
         const { id, func, args, sftpId } = msg
         if (func === 'destroy') {

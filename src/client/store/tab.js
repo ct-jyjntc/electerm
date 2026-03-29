@@ -18,6 +18,8 @@ import uid from '../common/uid'
 import newTerm, { updateCount } from '../common/new-terminal.js'
 import { action } from 'manate'
 
+const allowedTabTypes = new Set(['ssh', 'local', undefined])
+
 export default Store => {
   Store.prototype.nextTabCount = function () {
     return updateCount()
@@ -328,6 +330,9 @@ export default Store => {
     index,
     batch
   ) {
+    if (!allowedTabTypes.has(newTab.type)) {
+      return message.warning('Only SSH sessions are available in this build')
+    }
     if (
       (!newTab.type || newTab.type === 'local') &&
       !newTab.host &&

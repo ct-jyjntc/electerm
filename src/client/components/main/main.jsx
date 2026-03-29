@@ -2,15 +2,12 @@ import { auto } from 'manate/react'
 import { useEffect } from 'react'
 import Layout from '../layout/layout'
 import FileInfoModal from '../sftp/file-info-modal'
-import UpdateCheck from './upgrade'
 import SettingModal from '../setting-panel/setting-modal'
 import TextEditor from '../text-editor/text-editor'
 import Sidebar from '../sidebar'
-import BatchOp from '../batch-op/batch-op'
 import CssOverwrite from '../bg/css-overwrite'
 import UiTheme from './ui-theme'
 import CustomCss from '../bg/custom-css.jsx'
-import Resolutions from '../rdp/resolution-edit'
 import TerminalInteractive from '../terminal/terminal-interactive'
 import ConfirmModalStore from '../file-transfer/conflict-resolve.jsx'
 import TransferQueue from '../file-transfer/transfer-queue'
@@ -28,11 +25,9 @@ import RightSidePanel from '../side-panel-r/side-panel-r'
 import ConnectionHoppingWarning from './connection-hopping-warnning'
 import SshConfigLoadNotify from '../ssh-config/ssh-config-load-notify'
 import LoadSshConfigs from '../ssh-config/load-ssh-configs'
-import AIChat from '../ai/ai-chat'
 import Opacity from '../common/opacity'
 import MoveItemModal from '../tree-list/move-item-modal'
 import InputContextMenu from '../common/input-context-menu'
-import WorkspaceSaveModal from '../tabs/workspace-save-modal'
 import BookmarkFromHistoryModal from '../bookmark-form/bookmark-from-history-modal'
 import { pick } from 'lodash-es'
 import deepCopy from 'json-deep-copy'
@@ -45,7 +40,6 @@ export default auto(function Index (props) {
     window.addEventListener('resize', store.onResize)
     setTimeout(store.triggerResize, 200)
     const { ipcOnEvent } = window.pre
-    ipcOnEvent('checkupdate', store.onCheckUpdate)
     ipcOnEvent('open-about', store.openAbout)
     ipcOnEvent('new-ssh', store.onNewSsh)
     ipcOnEvent('add-tab-from-command-line', store.addTabFromCommandLine)
@@ -74,7 +68,6 @@ export default auto(function Index (props) {
     store.isSecondInstance = window.pre.runSync('isSecondInstance')
     store.initData()
     store.checkForDbUpgrade()
-    store.handleGetSerials()
     store.checkPendingDeepLink()
   }, [])
 
@@ -85,17 +78,13 @@ export default auto(function Index (props) {
     fullscreen,
     pinned,
     isSecondInstance,
-    pinnedQuickCommandBar,
-    installSrc,
     fileTransfers,
     uiThemeConfig,
     transferHistory,
     transferToConfirm,
-    openResolutionEdit,
     rightPanelTitle,
     rightPanelTab
   } = store
-  const upgradeInfo = deepCopy(store.upgradeInfo)
   const cls = classnames({
     loaded: configLoaded,
     'not-webapp': !window.et.isWebApp,
@@ -106,7 +95,6 @@ export default auto(function Index (props) {
     'is-win': isWin,
     pinned,
     'not-win': !isWin,
-    'qm-pinned': pinnedQuickCommandBar,
     fullscreen,
     'is-main': !isSecondInstance
   })
@@ -162,12 +150,10 @@ export default auto(function Index (props) {
       'isSyncingSetting',
       'leftSidebarWidth',
       'transferTab',
-      'sidebarPanelTab',
-      'openWidgetsModal'
+      'sidebarPanelTab'
     ]),
     fileTransfers: copiedTransfer,
     transferHistory: copiedHistory,
-    upgradeInfo,
     pinned
   }
 
@@ -177,23 +163,12 @@ export default auto(function Index (props) {
       'showInfoModal',
       'commandLineHelp'
     ]),
-    installSrc,
     upgradeInfo: store.upgradeInfo
   }
   const conflictStoreProps = {
     fileTransferChanged: JSON.stringify(copiedTransfer),
     fileTransfers: copiedTransfer
   }
-  const batchOpProps = {
-    transferHistory,
-    showModal: store.showModal,
-    innerWidth: store.innerWidth
-  }
-  const resProps = {
-    resolutions: deepCopy(store.resolutions),
-    openResolutionEdit
-  }
-
   const rightPanelProps = {
     rightPanelVisible: store.rightPanelVisible,
     rightPanelPinned: store.rightPanelPinned,
@@ -226,15 +201,6 @@ export default auto(function Index (props) {
     hasOldConnectionHoppingBookmark: store.hasOldConnectionHoppingBookmark,
     configLoaded
   }
-  const aiChatProps = {
-    aiChatHistory: store.aiChatHistory,
-    config,
-    selectedTabIds: store.batchInputSelectedTabIds,
-    tabs: store.getTabs(),
-    activeTabId: store.activeTabId,
-    showAIConfig: store.showAIConfig,
-    rightPanelTab
-  }
   const cmdSuggestionsProps = {
     suggestions: store.terminalCommandSuggestions
   }
@@ -256,14 +222,8 @@ export default auto(function Index (props) {
         />
         <CustomCss customCss={config.customCss} configLoaded={configLoaded} />
         <TextEditor />
-        <UpdateCheck
-          skipVersion={config.skipVersion}
-          upgradeInfo={upgradeInfo}
-          installSrc={installSrc}
-        />
         <FileInfoModal />
         <SettingModal store={store} />
-        <BatchOp {...batchOpProps} />
         <MoveItemModal store={store} />
         <div
           id='outside-context'
@@ -281,10 +241,8 @@ export default auto(function Index (props) {
           config={config}
         />
         <Remote2RemoteHandlers />
-        <Resolutions {...resProps} />
         <InfoModal {...infoModalProps} />
         <RightSidePanel {...rightPanelProps}>
-          <AIChat {...aiChatProps} />
           <TerminalInfo {...terminalInfoProps} />
         </RightSidePanel>
         <SshConfigLoadNotify {...sshConfigProps} />
@@ -295,7 +253,6 @@ export default auto(function Index (props) {
         <ConnectionHoppingWarning {...warningProps} />
         <TerminalCmdSuggestions {...cmdSuggestionsProps} />
         <TransferQueue />
-        <WorkspaceSaveModal store={store} />
         <BookmarkFromHistoryModal />
         <NotificationContainer />
       </div>

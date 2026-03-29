@@ -19,12 +19,6 @@ const installSrc = require('./install-src')
 const { getConfig } = require('./get-config')
 const loadSshConfig = require('./ssh-config')
 const {
-  listWidgets,
-  runWidget,
-  stopWidget,
-  runWidgetFunc
-} = require('../widgets/load-widget')
-const {
   checkMigrate,
   migrate
 } = require('../migrate/migrate-1-to-2')
@@ -61,14 +55,12 @@ const {
 } = require('./window-control')
 const { loadFontList } = require('./font-list')
 const { checkDbUpgrade, doUpgrade } = require('../upgrade')
-const { listSerialPorts } = require('./serial-port')
 const initApp = require('./init-app')
 const { encryptAsync, decryptAsync } = require('./enc')
 const { safeEncrypt, safeDecrypt } = require('./safe-storage')
 const { initCommandLine } = require('./command-line')
 const { watchFile, unwatchFile } = require('./watch-file')
 const lookup = require('../common/lookup')
-const { AIchat, getStreamContent, stopStream } = require('./ai')
 
 async function initAppServer () {
   const {
@@ -134,7 +126,6 @@ function initIpc () {
     lookup,
     loadSshConfig,
     init,
-    listSerialPorts,
     loadFontList,
     doUpgrade,
     checkDbUpgrade,
@@ -180,9 +171,6 @@ function initIpc () {
       lastStateManager.set('windowSize', update)
     },
     saveUserConfig,
-    AIchat,
-    getStreamContent,
-    stopStream,
     setTitle: (title) => {
       const win = globalState.get('win')
       win && win.setTitle(packInfo.name + ' - ' + title)
@@ -233,10 +221,6 @@ function initIpc () {
         const timer = setTimeout(() => settle(null), 5000)
       })
     },
-    listWidgets,
-    runWidget,
-    stopWidget,
-    runWidgetFunc,
     registerDeepLink,
     unregisterDeepLink,
     checkProtocolRegistration,

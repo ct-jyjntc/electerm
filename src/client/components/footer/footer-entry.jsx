@@ -5,11 +5,9 @@ import {
 import { InfoCircleOutlined } from '@ant-design/icons'
 import './footer.styl'
 import { statusMap } from '../../common/constants'
-import BatchInput from './batch-input'
 import encodes from '../bookmark-form/common/encodes'
 import { refs } from '../common/ref'
 import Qm from '../quick-commands/quick-commands-select'
-import AIIcon from '../icons/ai-icon'
 import CmdHistory from './cmd-history'
 
 const {
@@ -21,14 +19,6 @@ const e = window.translate
 export default auto(function FooterEntry (props) {
   function handleInfoPanel () {
     window.store.openInfoPanel()
-  }
-
-  function batchInput (cmd, selectedTabIds) {
-    selectedTabIds.map(id => {
-      return refs.get('term-' + id)
-    }).forEach(term => {
-      term?.batchInput(cmd)
-    })
   }
 
   function handleSwitchEncoding (encode) {
@@ -47,42 +37,6 @@ export default auto(function FooterEntry (props) {
       status
     } = currentTab
     return status !== statusMap.success
-  }
-
-  function renderBatchInputs () {
-    const { store } = props
-    const batchProps = {
-      input: batchInput,
-      tabs: store.tabs,
-      batchInputs: store.batchInputs,
-      batchInputSelectedTabIds: store.batchInputSelectedTabIds,
-      activeTabId: store.activeTabId
-    }
-    return (
-      <div className='terminal-footer-unit terminal-footer-center'>
-        <BatchInput
-          {...batchProps}
-        />
-      </div>
-    )
-  }
-
-  function renderQuickCommands () {
-    return (
-      <div className='terminal-footer-unit terminal-footer-qm'>
-        <Qm />
-      </div>
-    )
-  }
-
-  function renderAIIcon () {
-    return (
-      <div className='terminal-footer-unit terminal-footer-ai'>
-        <AIIcon
-          onClick={window.store.handleOpenAIPanel}
-        />
-      </div>
-    )
   }
 
   function renderEncodingInfo () {
@@ -140,6 +94,14 @@ export default auto(function FooterEntry (props) {
     )
   }
 
+  function renderQuickCommands () {
+    return (
+      <div className='terminal-footer-unit terminal-footer-qm'>
+        <Qm />
+      </div>
+    )
+  }
+
   const {
     leftSidebarWidth,
     openedSideBar,
@@ -166,10 +128,8 @@ export default auto(function FooterEntry (props) {
   return (
     <div {...sideProps}>
       <div className='terminal-footer-flex'>
-        {renderAIIcon()}
         {renderCmdHistory()}
         {renderQuickCommands()}
-        {renderBatchInputs()}
         {renderEncodingInfo()}
         {renderInfoIcon()}
       </div>

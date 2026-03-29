@@ -5,10 +5,6 @@ import { createRef } from 'react'
 import { Component } from 'manate/react/class-components'
 import Term from '../terminal/terminal.jsx'
 import Sftp from '../sftp/sftp-entry'
-import RdpSession from '../rdp/rdp-session'
-import VncSession from '../vnc/vnc-session'
-import WebSession from '../web/web-session.jsx'
-import SpiceSession from '../spice/spice-session'
 import {
   SearchOutlined,
   FullscreenOutlined,
@@ -26,13 +22,7 @@ import copy from 'json-deep-copy'
 import classnames from 'classnames'
 import {
   paneMap,
-  connectionMap,
-  terminalRdpType,
-  terminalVncType,
-  terminalWebType,
-  terminalTelnetType,
-  terminalFtpType,
-  terminalSpiceType
+  connectionMap
 } from '../../common/constants'
 import { SplitViewIcon } from '../icons/split-view'
 import { refs } from '../common/ref'
@@ -258,82 +248,8 @@ export default class SessionWrapper extends Component {
       tab
     } = this.props
     const {
-      pane, type, sshSftpSplitView
+      pane, sshSftpSplitView
     } = tab
-    if (type === terminalWebType) {
-      const webProps = {
-        tab,
-        width: this.props.width,
-        height: this.props.height,
-        reloadTab: this.props.reloadTab
-      }
-      return (
-        <WebSession
-          {...webProps}
-        />
-      )
-    }
-    if (type === terminalRdpType || type === terminalVncType || type === terminalSpiceType) {
-      const rdpProps = {
-        tab: this.props.tab,
-        ...pick(this.props, [
-          'resolutions',
-          'height',
-          'width',
-          'tabsHeight',
-          'leftSidebarWidth',
-          'pinned',
-          'openedSideBar',
-          'delTab',
-          'config',
-          'reloadTab',
-          'editTab',
-          'fullscreen'
-        ]),
-        ...pick(
-          this,
-          [
-            'fullscreenIcon'
-          ])
-      }
-      if (type === terminalVncType) {
-        return (
-          <VncSession
-            {...rdpProps}
-          />
-        )
-      }
-      if (type === terminalSpiceType) {
-        return (
-          <SpiceSession
-            {...rdpProps}
-          />
-        )
-      }
-
-      return (
-        <RdpSession
-          {...rdpProps}
-        />
-      )
-    }
-
-    if (type === terminalFtpType) {
-      const ftpProps = {
-        ...this.props,
-        ...pick(this, [
-          'onChangePane',
-          'setCwd'
-        ]),
-        isFtp: true
-      }
-      return (
-        <Sftp
-          {...ftpProps}
-        />
-      )
-    }
-
     const cls = pane === paneMap.terminal ||
       (sshSftpSplitView && this.canSplitView())
       ? 'terms-box'
@@ -379,13 +295,7 @@ export default class SessionWrapper extends Component {
   }
 
   isNotTerminalType = () => {
-    const { type } = this.props.tab
-    return type === terminalRdpType ||
-      type === terminalVncType ||
-      type === terminalWebType ||
-      type === terminalTelnetType ||
-      type === terminalFtpType ||
-      type === terminalSpiceType
+    return false
   }
 
   calcSftpWidthHeight = () => {

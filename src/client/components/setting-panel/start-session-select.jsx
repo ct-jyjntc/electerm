@@ -1,12 +1,7 @@
-import { TreeSelect, Tabs, Select, Empty } from 'antd'
-import { useState } from 'react'
+import { TreeSelect } from 'antd'
 import copy from 'json-deep-copy'
 import { createTitleWithTag } from '../../common/create-title'
-import {
-  AppstoreOutlined,
-  BookOutlined
-} from '@ant-design/icons'
-import HelpIcon from '../common/help-icon'
+import { BookOutlined } from '@ant-design/icons'
 
 const e = window.translate
 const { SHOW_CHILD } = TreeSelect
@@ -100,117 +95,25 @@ function BookmarkSelect (props) {
   )
 }
 
-function WorkspaceSelect (props) {
-  const {
-    workspaces,
-    onStartSessions,
-    onChangeStartSessions
-  } = props
-
-  if (!workspaces.length) {
-    return (
-      <Empty
-        image={Empty.PRESENTED_IMAGE_SIMPLE}
-        description={e('noWorkspaces')}
-      />
-    )
-  }
-
-  // onStartSessions is string for workspace
-  const value = typeof onStartSessions === 'string' ? onStartSessions : undefined
-
-  return (
-    <Select
-      value={value}
-      onChange={onChangeStartSessions}
-      placeholder={e('workspaces')}
-      style={{ width: '100%' }}
-      allowClear
-    >
-      {workspaces.map(w => (
-        <Select.Option key={w.id} value={w.id}>
-          {w.name}
-        </Select.Option>
-      ))}
-    </Select>
-  )
-}
-
 export default function StartSessionSelect (props) {
   const {
     onStartSessions,
     bookmarks,
     bookmarkGroups,
-    workspaces,
     onChangeStartSessions
   } = props
 
-  // Determine initial tab based on what's configured
-  // string = workspace, array = bookmarks
-  const getInitialTab = () => {
-    if (typeof onStartSessions === 'string' && onStartSessions) {
-      return 'workspaces'
-    }
-    return 'bookmarks'
-  }
-
-  const [activeTab, setActiveTab] = useState(getInitialTab)
-
-  // When switching tabs, clear the value if needed
-  const handleTabChange = (key) => {
-    setActiveTab(key)
-    // Reset to appropriate default when switching
-    if (key === 'bookmarks' && typeof onStartSessions === 'string') {
-      onChangeStartSessions([])
-    } else if (key === 'workspaces' && Array.isArray(onStartSessions)) {
-      onChangeStartSessions(undefined)
-    }
-  }
-
-  const tabItems = [
-    {
-      key: 'bookmarks',
-      label: (
-        <span>
-          <BookOutlined /> {e('bookmarks')}
-        </span>
-      )
-    },
-    {
-      key: 'workspaces',
-      label: (
-        <span>
-          <AppstoreOutlined /> {e('workspaces')}
-          <HelpIcon link='https://github.com/electerm/electerm/wiki/Workspace-Feature' />
-        </span>
-      )
-    }
-  ]
-
   return (
     <div>
-      <Tabs
-        items={tabItems}
-        size='small'
-        activeKey={activeTab}
-        onChange={handleTabChange}
+      <div className='pd1b'>
+        <BookOutlined /> {e('bookmarks')}
+      </div>
+      <BookmarkSelect
+        bookmarks={bookmarks}
+        bookmarkGroups={bookmarkGroups}
+        onStartSessions={onStartSessions}
+        onChangeStartSessions={onChangeStartSessions}
       />
-      {activeTab === 'bookmarks'
-        ? (
-          <BookmarkSelect
-            bookmarks={bookmarks}
-            bookmarkGroups={bookmarkGroups}
-            onStartSessions={onStartSessions}
-            onChangeStartSessions={onChangeStartSessions}
-          />
-          )
-        : (
-          <WorkspaceSelect
-            workspaces={workspaces}
-            onStartSessions={onStartSessions}
-            onChangeStartSessions={onChangeStartSessions}
-          />
-          )}
     </div>
   )
 }

@@ -7,11 +7,10 @@ import {
   fileOperationsMap,
   syncTypes,
   infoTabs,
+  pinnedQuickCommandBarKey,
   openedSidebarKey,
   sidebarPinnedKey,
-  pinnedQuickCommandBarKey,
   sftpDefaultSortSettingKey,
-  batchInputLsKey,
   expandedKeysLsKey,
   checkedKeysLsKey,
   localAddrBookmarkLsKey,
@@ -20,8 +19,6 @@ import {
   addPanelWidthLsKey,
   dismissDelKeyTipLsKey,
   qmSortByFrequencyKey,
-  resolutionsLsKey,
-  aiChatHistoryKey,
   syncServerDataKey,
   splitMap,
   cmdHistoryKey
@@ -72,8 +69,6 @@ export default () => {
     checkedKeys: ls.getItemJSON(checkedKeysLsKey, []),
     addressBookmarks: [],
     addressBookmarksLocal: ls.getItemJSON(localAddrBookmarkLsKey, []),
-    openResolutionEdit: false,
-    resolutions: ls.getItemJSON(resolutionsLsKey, []),
     // terminalCommandHistory: Map<cmdString, {count: Number, lastUseTime: DateString}>
     // Load from localStorage and migrate from old format (Set of strings) if needed
     terminalCommandHistory: (() => {
@@ -100,18 +95,9 @@ export default () => {
       }
       return map
     })(),
-
-    // workspaces
-    workspaces: [],
-    workspaceSaveModalVisible: false,
-
     // init session control
     selectedSessions: [],
     sessionModalVisible: false,
-
-    // batch input selected tab ids
-    _batchInputSelectedTabIds: new Set(),
-    aiChatHistory: ls.safeGetItemJSON(aiChatHistoryKey, []),
 
     // sftp
     fileOperation: fileOperationsMap.cp, // cp or mv
@@ -171,14 +157,12 @@ export default () => {
         activeMatchColorOverviewRuler: 'yellow'
       }
     },
-
     // quick commands
     quickCommands: [],
     quickCommandId: '',
     openQuickCommandBar: false,
     pinnedQuickCommandBar: ls.getItem(pinnedQuickCommandBarKey) === 'y',
     qmSortByFrequency: ls.getItem(qmSortByFrequencyKey) === 'yes',
-
     // sidebar
     openedSideBar: ls.getItem(openedSidebarKey),
     leftSidebarWidth: parseInt(ls.getItem(leftSidebarWidthKey), 10) || 300,
@@ -196,22 +180,11 @@ export default () => {
 
     // file/info modal
     showFileModal: false,
-
-    // update
-    upgradeInfo: {},
-
-    // serial list related
-    serials: [],
-    loaddingSerials: false,
-
     appPath: '',
     exePath: '',
     isPortable: false,
     installSrc: '',
     showSshConfigModal: false,
-
-    // batch inputs
-    batchInputs: ls.getItemJSON(batchInputLsKey, []),
 
     // ui
     innerWidth: window.innerWidth,
@@ -221,10 +194,6 @@ export default () => {
     fullscreen: false,
     hideDelKeyTip: ls.getItem(dismissDelKeyTipLsKey) === 'y',
     tabsHeight: 36,
-
-    // widgets
-    widgets: [],
-    widgetInstances: [],
     // move item
     openMoveModal: false,
     moveItem: null,

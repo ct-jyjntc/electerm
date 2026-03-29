@@ -27,16 +27,6 @@ function parseCommandLine (argv, options) {
 ### Other params examples:
 - server port:
 electerm -sp 30976
-- load and run batch operation from csv file:
-electerm -bo "/home/root/works.csv"
-
-### other connection types
-- telnet:
-electerm -tp "telnet" -opts '{"host":"192.168.1.1","port":21","username":"root","password":"123456"}'
-- rdp: electerm -tp "rdp" -opts '{"host":"192.168.1.1","port":3389","username":"root","password":"123456"}'
-- vnc: electerm -tp "vnc" -opts '{"host":"192.168.1.1","port":3389","username":"root","password":"123456"}'
-- serial: electerm -tp "serial" -opts '{"port":"COM1","baudRate":115200,"dataBits":8,"stopBits":1,"parity":"none"}'
-- local: electerm -tp "local" -opts '{"title": "local terminal"}'
 
 ### Environment variables:
 - DATA_PATH:
@@ -57,7 +47,6 @@ PROXY_SERVER="socks5://127.0.0.1:1080" electerm
     .option('-t, --title [Tab Name]', 'Specify the title of the new tab')
     .option('-l, --user <user>', 'specify a login name')
     .option('-P, --port <port>', 'specify ssh port')
-    .option('-bo, --batch-op <batchOpFile>', 'load and run batch operation from csv file')
     .option('-sp, --server-port <serverPort>', 'specify server port, default is')
     .option('-i, --private-key-path <path>', 'specify an SSH private key path')
     .option('-ps, --passphrase <passphrase>', 'specify an SSH private key passphrase')
@@ -65,7 +54,6 @@ PROXY_SERVER="socks5://127.0.0.1:1080" electerm
     .option('-se, --set-env <setEnv>', 'specify envs')
     .option('-so, --sftp-only', 'only show sftp panel')
     .option('-d, --init-folder <initFolder>', 'init folder got init terminal')
-    .option('-tp, --tp <tp>', 'specify connection type')
     .option('-opts, --opts <opts>', 'specify connection options, json string')
     .exitOverride()
 

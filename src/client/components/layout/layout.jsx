@@ -109,10 +109,8 @@ export default auto(function Layout (props) {
         ...pick(store, [
           'isMaximized',
           'config',
-          'resolutions',
           'hideDelKeyTip',
           'fileOperation',
-          'pinnedQuickCommandBar',
           'tabsHeight',
           'appPath',
           'leftSidebarWidth',
@@ -150,7 +148,6 @@ export default auto(function Layout (props) {
     'qmSortByFrequency',
     'openQuickCommandBar',
     'pinnedQuickCommandBar',
-    'qmSortByFrequency',
     'inActiveTerminal',
     'leftSidebarWidth',
     'openedSideBar',
@@ -169,11 +166,9 @@ export default auto(function Layout (props) {
       'activeTabId2',
       'activeTabId3',
       'batch',
-      'resolutions',
       'hideDelKeyTip',
       'fileOperation',
       'file',
-      'pinnedQuickCommandBar',
       'tabsHeight',
       'appPath',
       'leftSidebarWidth',
@@ -198,9 +193,6 @@ export default auto(function Layout (props) {
       key='QuickCommandsFooterBox'
       {...qmProps}
     />,
-    <Footer
-      key='Footer'
-      {...footerProps}
-    />
+    <Footer key='Footer' {...footerProps} />
   ]
 })

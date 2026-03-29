@@ -78,7 +78,7 @@ export default function QuickConnect ({ batch, inputOnly }) {
       onChange: handleChange,
       className: 'width-100 quick-connect-input',
       onPressEnter: handleConnect,
-      placeholder: 'ssh|rdp|vnc|spice|serial|http|https://[username]:[password]@host:port?opts={...}',
+      placeholder: 'ssh://[username]:[password]@host:port or user@host[:port]',
       prefix: inputOnly ? <HelpIcon link={wiki} /> : undefined
     }
     const iconProps = {

@@ -2,15 +2,10 @@
  * Quick Connect String Parser
  * Parses connection strings according to temp/quick-connect.wiki.md specification
  *
- * Supported Protocols: ssh, telnet, vnc, rdp, spice, serial, ftp, http, https, electerm
+ * Supported Protocols: ssh
  *
  * Basic Format:
- * protocol://[username:password@]host[:port]?anyQueryParam=anyValue&opts={"key":"value"}
- *
- * electerm:// Format (default type is ssh):
- * electerm://[username:password@]host[:port]?type=ssh&anyQueryParam=anyValue
- * electerm://host?type=telnet
- * electerm://user@host:22?type=vnc
+ * ssh://[username:password@]host[:port]?anyQueryParam=anyValue&opts={"key":"value"}
  *
  * Shortcut Format (SSH default):
  * user@host
@@ -19,22 +14,13 @@
  * 192.168.1.100:22
  */
 
-const SUPPORTED_PROTOCOLS = ['ssh', 'telnet', 'vnc', 'rdp', 'spice', 'serial', 'ftp', 'http', 'https', 'electerm']
+const SUPPORTED_PROTOCOLS = ['ssh']
 
 /**
  * Default ports for each protocol
  */
 const DEFAULT_PORTS = {
-  ssh: 22,
-  telnet: 23,
-  vnc: 5900,
-  rdp: 3389,
-  spice: 5900,
-  serial: undefined, // Serial doesn't have a default port
-  ftp: 21,
-  http: 80,
-  https: 443,
-  electerm: 22 // electerm defaults to SSH port
+  ssh: 22
 }
 
 /**
@@ -50,47 +36,7 @@ const TYPE_DEFAULT_VALUES = {
     term: 'xterm-256color',
     encode: 'utf-8',
     envLang: 'en_US.UTF-8'
-  },
-  telnet: {
-    port: 23
-  },
-  vnc: {
-    port: 5900,
-    viewOnly: false,
-    clipViewport: false,
-    scaleViewport: true,
-    qualityLevel: 3,
-    compressionLevel: 1,
-    shared: true
-  },
-  rdp: {
-    port: 3389
-  },
-  spice: {
-    port: 5900,
-    viewOnly: false,
-    scaleViewport: true
-  },
-  serial: {
-    baudRate: 9600,
-    dataBits: 8,
-    lock: true,
-    stopBits: 1,
-    parity: 'none',
-    rtscts: false,
-    xon: false,
-    xoff: false,
-    xany: false,
-    term: 'xterm-256color',
-    displayRaw: false
-  },
-  ftp: {
-    port: 21,
-    encode: 'utf-8',
-    secure: false
-  },
-  web: {},
-  local: {}
+  }
 }
 
 /**
@@ -110,7 +56,7 @@ function parseQuickConnect (str) {
 
   try {
     // Detect protocol
-    const protocolMatch = trimmed.match(/^(ssh|telnet|vnc|rdp|spice|serial|ftp|https?|electerm):\/\//i)
+    const protocolMatch = trimmed.match(/^(ssh):\/\//i)
 
     let protocol = ''
     let connectionString = ''
@@ -150,7 +96,7 @@ function parseQuickConnect (str) {
       }
     }
 
-    if (!SUPPORTED_PROTOCOLS.includes(protocol) && protocol !== 'web') {
+    if (!SUPPORTED_PROTOCOLS.includes(protocol)) {
       return null
     }
 

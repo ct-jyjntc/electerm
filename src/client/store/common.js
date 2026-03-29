@@ -6,21 +6,15 @@ import handleError from '../common/error-handler'
 import Modal from '../components/common/modal'
 import { debounce, some, get, pickBy } from 'lodash-es'
 import {
-  modals,
   leftSidebarWidthKey,
   rightSidebarWidthKey,
   addPanelWidthLsKey,
-  dismissDelKeyTipLsKey,
-  connectionMap,
-  settingMap,
-  settingAiId
+  dismissDelKeyTipLsKey
 } from '../common/constants'
 import * as ls from '../common/safe-local-storage'
-import { refs, refsStatic } from '../components/common/ref'
+import { refs } from '../components/common/ref'
 import { action } from 'manate'
 import deepCopy from 'json-deep-copy'
-import { aiConfigsArr } from '../components/ai/ai-config-props'
-import settingList from '../common/setting-list'
 
 const e = window.translate
 const { assign } = Object
@@ -53,15 +47,6 @@ export default Store => {
     }, 300)
   }
 
-  Store.prototype.toggleAIConfig = function () {
-    const { store } = window
-    store.storeAssign({
-      settingTab: settingMap.setting
-    })
-    store.setSettingItem(settingList().find(d => d.id === settingAiId))
-    store.openSettingModal()
-  }
-
   Store.prototype.onResize = debounce(async function () {
     const { width, height } = await window.pre.runGlobalAsync('getScreenSize')
     const isMaximized = window.pre.runSync('isMaximized')
@@ -92,33 +77,6 @@ export default Store => {
 
   Store.prototype.setState = function (name, value) {
     window.store['_' + name] = JSON.stringify(value)
-  }
-
-  Store.prototype.toggleBatchOp = function () {
-    window.store.showModal = window.store.showModal === modals.batchOps ? modals.hide : modals.batchOps
-  }
-
-  Store.prototype.runBatchOp = function (path) {
-    window.store.showModal = modals.batchOps
-    async function updateText () {
-      const text = await window.fs.readFile(path)
-      refsStatic.get('batch-op')?.setState({
-        text
-      })
-    }
-    function queue () {
-      refsStatic.get('batch-op')?.handleClick()
-    }
-    function run () {
-      refsStatic.get('batch-op')?.handleExec()
-    }
-    try {
-      setTimeout(updateText, 2000)
-      setTimeout(queue, 3000)
-      setTimeout(run, 4000)
-    } catch (e) {
-      console.error(e)
-    }
   }
 
   Store.prototype.setSettingItem = function (v) {
@@ -189,10 +147,6 @@ export default Store => {
     })
   }
 
-  Store.prototype.toggleResolutionEdit = function () {
-    window.store.openResolutionEdit = !window.store.openResolutionEdit
-  }
-
   Store.prototype.setTerminalInfos = function (arr) {
     window.store.setConfig({
       terminalInfos: arr
@@ -202,7 +156,6 @@ export default Store => {
   Store.prototype.applyProfile = function (tab) {
     const {
       profile,
-      type,
       authType
     } = tab
     if (!profile || authType !== 'profiles') {
@@ -218,28 +171,6 @@ export default Store => {
     // delete tab.passphrase
     delete p.name
     delete p.id
-    if (type === connectionMap.rdp) {
-      const filtered = pickBy(p.rdp, (value) => value !== undefined && value !== '')
-      return {
-        ...tab,
-        ...filtered
-      }
-    } else if (type === connectionMap.vnc) {
-      const filtered = pickBy(p.vnc, (value) => value !== undefined && value !== '')
-      return {
-        ...tab,
-        ...filtered
-      }
-    } else if (type === connectionMap.telnet) {
-      const filtered = pickBy(p.telnet, (value) => value !== undefined && value !== '')
-      return {
-        ...tab,
-        ...filtered
-      }
-    }
-    delete p.rdp
-    delete p.vnc
-    delete p.telnet
     const filtered = pickBy(p, (value) => value !== undefined && value !== '')
     return {
       ...tab,
@@ -257,38 +188,6 @@ export default Store => {
       })
     }
     return window.store.applyProfile(tab)
-  }
-
-  Store.prototype.handleOpenAIPanel = function () {
-    const { store } = window
-    store.rightPanelVisible = true
-    store.rightPanelTab = 'ai'
-  }
-
-  Store.prototype.explainWithAi = function (txt) {
-    const { store } = window
-    store.handleOpenAIPanel()
-    setTimeout(() => {
-      refsStatic.get('AIChat')?.setPrompt(`explain terminal output: ${txt}`)
-    }, 500)
-    setTimeout(() => {
-      refsStatic.get('AIChat')?.handleSubmit()
-    }, 1200)
-  }
-
-  Store.prototype.runCommandInTerminal = function (cmd) {
-    window.store.batchInputSelectedTabIds.forEach(id => {
-      refs.get('term-' + id)?.runQuickCommand(cmd)
-    })
-  }
-
-  Store.prototype.removeAiHistory = function (id) {
-    const { store } = window
-    const index = store.aiChatHistory.findIndex(d => d.id === id)
-    if (index === -1) {
-      return
-    }
-    window.store.aiChatHistory.splice(index, 1)
   }
 
   Store.prototype.getLangName = function (
@@ -330,10 +229,6 @@ export default Store => {
         delete p.isDefault
       }
     }
-  }
-
-  Store.prototype.aiConfigMissing = function () {
-    return aiConfigsArr.slice(0, -1).some(k => !window.store.config[k])
   }
 
   Store.prototype.clearHistory = function () {

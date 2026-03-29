@@ -38,7 +38,6 @@ import { shortcutExtend, shortcutDescExtend } from '../shortcuts/shortcut-handle
 import { KeywordHighlighterAddon } from './highlight-addon.js'
 import { getFilePath, isUnsafeFilename } from '../../common/file-drop-utils.js'
 import { CommandTrackerAddon } from './command-tracker-addon.js'
-import AIIcon from '../icons/ai-icon.jsx'
 import {
   getShellIntegrationCommand,
   detectRemoteShell,
@@ -558,12 +557,6 @@ class Term extends Component {
     )
   }
 
-  explainWithAi = () => {
-    window.store.explainWithAi(
-      this.term.getSelection()
-    )
-  }
-
   renderContextMenu = () => {
     const { hasSelection } = this.state
     const copyed = true
@@ -599,12 +592,6 @@ class Term extends Component {
         icon: <iconsMap.CheckSquareOutlined />,
         label: e('selectall'),
         extra: selectAllShortcut
-      },
-      {
-        key: 'explainWithAi',
-        icon: <AIIcon />,
-        label: e('explainWithAi'),
-        disabled: !hasSelection
       },
       {
         key: 'onClear',

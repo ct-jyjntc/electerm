@@ -61,14 +61,7 @@ export const statusMap = buildConst([
 
 export const connectionMap = buildConst([
   'ssh',
-  'telnet',
-  'serial',
-  'local',
-  'web',
-  'rdp',
-  'vnc',
-  'ftp',
-  'spice'
+  'local'
 ])
 
 export const authTypeMap = buildConst([
@@ -78,7 +71,6 @@ export const authTypeMap = buildConst([
 ])
 
 export const footerHeight = 36
-export const quickCommandBoxHeight = 180
 export const isWin = typeof window.et.isWin === 'undefined' ? window.pre.isWin : window.et.isWin
 export const isMac = typeof window.et.isMac === 'undefined' ? window.pre.isMac : window.et.isMac
 export const isMacJs = /Macintosh|Mac|Mac OS|MacIntel|MacPPC|Mac68K/gi.test(window.navigator.userAgent)
@@ -102,9 +94,7 @@ export const settingMap = buildConst([
   'bookmarkGroups',
   'quickCommands',
   'addressBookmarks',
-  'profiles',
-  'widgets',
-  'workspaces'
+  'profiles'
 ])
 
 export const staticNewItemTabs = new Set([
@@ -137,55 +127,17 @@ export const fileOperationsMap = buildConst([
 ])
 
 export const terminalSshConfigType = 'ssh-config'
-export const terminalWebType = 'web'
-export const terminalRdpType = 'rdp'
-export const terminalVncType = 'vnc'
-export const terminalSerialType = 'serial'
-export const terminalTelnetType = 'telnet'
 export const terminalLocalType = 'local'
-export const terminalFtpType = 'ftp'
-export const terminalSpiceType = 'spice'
+export const pinnedQuickCommandBarKey = 'pinned-quick-command-bar'
 export const openedSidebarKey = 'opened-sidebar'
 export const sidebarPinnedKey = 'sidebar-pinned'
-export const pinnedQuickCommandBarKey = 'pinned-quick-command-bar'
 export const leftSidebarWidthKey = 'left-sidebar-width'
 export const rightSidebarWidthKey = 'right-sidebar-width'
 export const addPanelWidthLsKey = 'addPanelWidth'
 export const sftpDefaultSortSettingKey = 'sftp-default-sort'
 export const qmSortByFrequencyKey = 'qm-sort-by-frequency'
-
-export const commonBaudRates = [
-  110,
-  300,
-  1200,
-  2400,
-  4800,
-  9600,
-  14400,
-  19200,
-  38400,
-  57600,
-  115200
-]
-
-export const commonDataBits = [
-  8, 7, 6, 5
-]
-
-export const commonStopBits = [
-  1, 2
-]
-
-export const commonParities = [
-  'none', 'even', 'mark', 'odd', 'space'
-]
-
-export const maxBatchInput = 30
+export const quickCommandBoxHeight = 180
 export const windowControlWidth = 94
-export const baseUpdateCheckUrls = [
-  packInfo.homepage,
-  'https://gitee.com/github-zxdong262/electerm/raw/gh-pages'
-]
 export const syncTypes = buildConst([
   'github',
   'gitee',
@@ -200,8 +152,6 @@ export const syncTokenCreateUrls = {
 }
 export const settingSyncId = 'setting-sync'
 export const settingTerminalId = 'setting-terminal'
-export const settingShortcutsId = 'setting-shortcuts'
-export const settingAiId = 'setting-ai'
 export const settingCommonId = 'setting-common'
 export const settingPasswordsId = 'setting-passwords'
 export const defaultEnvLang = 'en_US.UTF-8'
@@ -215,13 +165,12 @@ export const fileActions = {
   renameAll: 'renameAll'
 }
 
+export const termLSPrefix = 'term:sess:'
 export const srcsSkipUpgradeCheck = [
   '.appx',
   '.snap',
   'skip-upgrade-check'
 ]
-export const termLSPrefix = 'term:sess:'
-export const batchInputLsKey = 'batch-inputs'
 export const rendererTypes = {
   dom: 'dom',
   canvas: 'canvas',
@@ -232,23 +181,18 @@ export const mirrors = {
   github: 'github',
   sourceforge: 'sourceforge'
 }
-export const downloadUpgradeTimeout = 20000
 export const expandedKeysLsKey = 'expanded-keys'
-export const resolutionsLsKey = 'custom-resolution-key'
 export const checkedKeysLsKey = 'checked-keys'
 export const quickCommandLabelsLsKey = 'quick-command-label'
 export const localAddrBookmarkLsKey = 'local-addr-bookmark-keys'
 export const dismissDelKeyTipLsKey = 'dismiss-del-key-tip'
 export const sshTunnelHelpLink = 'https://github.com/electerm/electerm/wiki/How-to-use-ssh-tunnel'
-export const batchOpHelpLink = 'https://github.com/electerm/electerm/wiki/batch-operation'
 export const proxyHelpLink = 'https://github.com/electerm/electerm/wiki/proxy-format'
 export const regexHelpLink = 'https://github.com/electerm/electerm/wiki/Terminal-keywords-highlight-regular-expression-exmaples'
 export const connectionHoppingWikiLink = 'https://github.com/electerm/electerm/wiki/Connection-Hopping-Behavior-Change-in-electerm-since-v1.50.65'
-export const aiConfigWikiLink = 'https://github.com/electerm/electerm/wiki/AI-model-config-guide'
 export const modals = {
   hide: 0,
-  setting: 1,
-  batchOps: 2
+  setting: 1
 }
 export const instSftpKeys = [
   'connect',
@@ -333,8 +277,7 @@ export const syncDataMaps = {
   terminalThemes: ['terminalThemes'],
   quickCommands: ['quickCommands'],
   profiles: ['profiles'],
-  addressBookmarks: ['addressBookmarks'],
-  workspaces: ['workspaces']
+  addressBookmarks: ['addressBookmarks']
 }
 export const terminalTypes = [
   'xterm-256color',
@@ -350,6 +293,5 @@ export const terminalTypes = [
 export const sshConfigLoadKey = 'ssh-config-loaded'
 export const sshConfigKey = 'ignore-ssh-config'
 export const connectionHoppingWarnKey = 'connectionHoppingWarnned'
-export const aiChatHistoryKey = 'ai-chat-history'
 export const syncServerDataKey = 'sync-server-data'
 export const cmdHistoryKey = 'cmd-history'
