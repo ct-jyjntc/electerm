@@ -4,19 +4,12 @@
     </a>
 </h1>
 
-# sshterm [![Tweet](https://badgers.space/badge/Tweet/Tweet/social)](https://twitter.com/intent/tweet?text=Open%20sourced%20terminal%2Fssh%2Fsftp%20client(linux%2C%20mac%2C%20win)&url=https%3A%2F%2Fgithub.com%2Felecterm%2Felecterm&hashtags=electerm,ssh,terminal,sftp)
+# sshterm
 
-[![GitHub version](https://badgers.space/github/release/electerm/electerm?corner_radius=m)](https://github.com/electerm/electerm/releases)
-[![Build Status](https://github.com/electerm/electerm/actions/workflows/mac-test-1.yml/badge.svg)](https://github.com/electerm/electerm/actions)
-[![license](https://img.shields.io/github/license/electerm/electerm)](https://github.com/electerm/electerm/blob/master/LICENSE)
+[![GitHub version](https://badgers.space/github/release/ct-jyjntc/electerm?corner_radius=m)](https://github.com/ct-jyjntc/electerm/releases)
+[![license](https://img.shields.io/github/license/ct-jyjntc/electerm)](https://github.com/ct-jyjntc/electerm/blob/sshterm/LICENSE)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Get it from the Snap Store](https://img.shields.io/badge/Snap-Store-green)](https://snapcraft.io/electerm)
-[![Get it from the Microsoft Store](https://img.shields.io/badge/Microsoft-Store-blue)](https://www.microsoft.com/store/apps/9NCN7272GTFF)
-[![Debian Repository](https://img.shields.io/badge/Debian-Repository-red)](https://electerm-repos.html5beta.com/deb)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/electerm?label=Sponsors)](https://github.com/sponsors/electerm)
 [![Powered by manate](https://img.shields.io/badge/Powered%20by-manate-blue)](https://github.com/tylerlong/manate)
-[![Discord](https://img.shields.io/badge/Discord-Join-blue?logo=discord)](https://discord.gg/855W7g8EVd)
-[![star](https://atomgit.com/electerm/electerm/star/badge.svg)](https://atomgit.com/electerm/electerm)
 
 [![English](https://img.shields.io/badge/English-EN-blue)](README.md) [![中文](https://img.shields.io/badge/中文-Chinese-blue)](README_cn.md)
 
@@ -28,9 +21,7 @@ sshterm 是一个更聚焦的 SSH 工作台：提供终端、SFTP 文件管理�
 
 这个 fork 有意删除了与 SSH 无直接关系的功能，目标是降低产品复杂度和后续维护成本。
 
-有经验的开发者也可以尝试运行于浏览器(支持移动设备)的web app版本: [electerm-web](https://github.com/electerm/electerm-web) 或者 [docker image for electerm-web](https://github.com/electerm/electerm-web-docker)
-
-在线演示: [https://electerm-demo.html5beta.com](https://electerm-demo.html5beta.com)
+仓库地址: [https://github.com/ct-jyjntc/electerm](https://github.com/ct-jyjntc/electerm)
 
 <div align="center">
   <img src="https://github.com/electerm/electerm-resource/raw/master/static/images/electerm.gif", alt="" />
@@ -56,8 +47,8 @@ sshterm 是一个更聚焦的 SSH 工作台：提供终端、SFTP 文件管理�
 - 支持同步书签和主题等数据到 github/gitee 私人 gist
 - 支持快捷命令，方便重复 SSH 操作
 - 支持 SSH config 导入、跳板机和 SSH 隧道
-- 支持命令行使用: 请参阅[wiki](https://github.com/electerm/electerm/wiki/Command-line-usage)
-- 深度链接支持: 使用 `ssh://user@host:22` 等 URL 打开连接 - 详见 [深度链接支持 wiki](https://github.com/electerm/electerm/wiki/Deep-link-support)
+- 支持命令行使用，可通过 SSH URL 或命令行参数拉起会话
+- 深度链接支持: 使用 `ssh://user@host:22` 等 URL 打开连接
 
 ## 功能边界
 
@@ -74,35 +65,21 @@ sshterm 保留与 SSH 直接相关的能力：
 
 ## 下载
 
-- [主页](https://electerm.html5beta.com)
-- [sourceforge](https://sourceforge.net/projects/electerm.mirror/files/)
-- [github releases](https://github.com/electerm/electerm/releases)
+- [GitHub 仓库](https://github.com/ct-jyjntc/electerm)
+- [GitHub releases](https://github.com/ct-jyjntc/electerm/releases)
 
 ## 安装
 
-- Mac OS用户: `brew install --cask electerm`
-- Snap: `sudo snap install electerm --classic`
-- 一些Linux发行版的内置软件商店(Ubuntu, Deepin, Mint...).
-- 不支持`rpm`, `deb`, or `snap` 的Linux发行版可以尝试 `tar.gz`版本.
-- Windows用户可以从[windows store](https://www.microsoft.com/store/apps/9NCN7272GTFF), 命令行安装工具 [winget](https://github.com/microsoft/winget-cli)，以及[scoop](https://github.com/lukesampson/scoop) :
+- 从 fork 的 release 页面下载构建产物：
 
-```powershell
-# winget https://github.com/microsoft/winget-cli
-winget install electerm.electerm
-
-# scoop https://github.com/lukesampson/scoop
-scoop bucket add dorado https://github.com/chawyehsu/dorado
-scoop install dorado/electerm
+```text
+https://github.com/ct-jyjntc/electerm/releases
 ```
 
-- 从Debian软件源安装 (适用于Debian/Ubuntu系统) 使用 `apt` 命令
-
-查看 [https://electerm-repos.html5beta.com/deb](https://electerm-repos.html5beta.com/deb)
-
-- 从npm安装
+- 如果你发布了自己的 npm 包，也可以通过 npm 安装：
 
 ```bash
-npm i -g electerm
+npm i -g sshterm
 
 # after installation, it will immediately open for windows and linux,
 # for macOS, it will open the drag to install panel
@@ -111,37 +88,29 @@ npm i -g electerm
 
 ## 已知问题
 
-[https://github.com/electerm/electerm/wiki/Know-issues](https://github.com/electerm/electerm/wiki/Know-issues)
+[https://github.com/ct-jyjntc/electerm/wiki/Know-issues](https://github.com/ct-jyjntc/electerm/wiki/Know-issues)
 
 ## 疑难解答
 
-[https://github.com/electerm/electerm/wiki/Troubleshoot](https://github.com/electerm/electerm/wiki/Troubleshoot)
+[https://github.com/ct-jyjntc/electerm/wiki/Troubleshoot](https://github.com/ct-jyjntc/electerm/wiki/Troubleshoot)
 
 ## 讨论区
 
 [![Discord](https://img.shields.io/badge/Discord-Join-blue?logo=discord)](https://discord.gg/855W7g8EVd)
 
-[Discussion board](https://github.com/electerm/electerm/discussions)
+[Discussion board](https://github.com/ct-jyjntc/electerm/discussions)
 
 ![electerm-wechat-group-qr.jpg](https://electerm.html5beta.com/electerm-wechat-group-qr.jpg)
 
 ## 支持
 
-欢迎[提交问题/建议](https://github.com/electerm/electerm/issues), [展开讨论](https://github.com/electerm/electerm/discussions/new), [修复或者创建语言文件](https://github.com/electerm/electerm-locales)或者贡献代码。
+欢迎[提交问题/建议](https://github.com/ct-jyjntc/electerm/issues), [展开讨论](https://github.com/ct-jyjntc/electerm/discussions/new), [修复或者创建语言文件](https://github.com/electerm/electerm-locales)或者贡献代码。
 
 ## 赞助项目
 
-github sponsor
+fork 首页：
 
-[https://github.com/sponsors/electerm](https://github.com/sponsors/electerm)
-
-kofi
-
-[https://ko-fi.com/zhaoxudong](https://ko-fi.com/zhaoxudong)
-
-微信赞赏码
-
-[![wechat donate](https://electerm.html5beta.com/electerm-wechat-donate.png)](https://github.com/electerm)
+[https://github.com/ct-jyjntc/electerm](https://github.com/ct-jyjntc/electerm)
 
 ## 开发
 
@@ -150,7 +119,7 @@ kofi
 # needs nodejs/npm, suggest using fnm to install nodejs/npm
 # with nodejs 22.x
 
-git clone git@github.com:electerm/electerm.git
+git clone git@github.com:ct-jyjntc/electerm.git
 cd electerm
 npm config set legacy-peer-deps true
 npm i
@@ -212,7 +181,7 @@ npm run b
 
 ## 变更历史
 
-Visit [Releases](https://github.com/electerm/electerm/releases).
+Visit [Releases](https://github.com/ct-jyjntc/electerm/releases).
 
 ## 联系作者
 

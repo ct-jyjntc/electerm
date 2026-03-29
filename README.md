@@ -4,19 +4,12 @@
     </a>
 </h1>
 
-# sshterm [![Tweet](https://badgers.space/badge/Tweet/Tweet/social)](https://twitter.com/intent/tweet?text=Open%20sourced%20terminal%2Fssh%2Fsftp%20client(linux%2C%20mac%2C%20win)&url=https%3A%2F%2Fgithub.com%2Felecterm%2Felecterm&hashtags=electerm,ssh,terminal,sftp)
+# sshterm
 
-[![GitHub version](https://badgers.space/github/release/electerm/electerm?corner_radius=m)](https://github.com/electerm/electerm/releases)
-[![Build Status](https://github.com/electerm/electerm/actions/workflows/mac-test-1.yml/badge.svg)](https://github.com/electerm/electerm/actions)
-[![license](https://img.shields.io/github/license/electerm/electerm)](https://github.com/electerm/electerm/blob/master/LICENSE)
+[![GitHub version](https://badgers.space/github/release/ct-jyjntc/electerm?corner_radius=m)](https://github.com/ct-jyjntc/electerm/releases)
+[![license](https://img.shields.io/github/license/ct-jyjntc/electerm)](https://github.com/ct-jyjntc/electerm/blob/sshterm/LICENSE)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Get it from the Snap Store](https://img.shields.io/badge/Snap-Store-green)](https://snapcraft.io/electerm)
-[![Get it from the Microsoft Store](https://img.shields.io/badge/Microsoft-Store-blue)](https://www.microsoft.com/store/apps/9NCN7272GTFF)
-[![Debian Repository](https://img.shields.io/badge/Debian-Repository-red)](https://electerm-repos.html5beta.com/deb)
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/electerm?label=Sponsors)](https://github.com/sponsors/electerm)
 [![Powered by manate](https://img.shields.io/badge/Powered%20by-manate-blue)](https://github.com/tylerlong/manate)
-[![Discord](https://img.shields.io/badge/Discord-Join-blue?logo=discord)](https://discord.gg/855W7g8EVd)
-[![star](https://atomgit.com/electerm/electerm/star/badge.svg)](https://atomgit.com/electerm/electerm)
 
 [![English](https://img.shields.io/badge/English-EN-blue)](README.md) [![中文](https://img.shields.io/badge/中文-Chinese-blue)](README_cn.md)
 
@@ -28,9 +21,7 @@ sshterm is a focused SSH workspace for desktop: terminal, SFTP file management, 
 
 This fork intentionally removes features unrelated to SSH workflows, so the product surface stays smaller and easier to maintain.
 
-For experienced developers, you may try the web app version running in browser(including mobile device): [electerm-web](https://github.com/electerm/electerm-web) or [docker image for electerm-web](https://github.com/electerm/electerm-web-docker)
-
-Online demo: [https://electerm-demo.html5beta.com](https://electerm-demo.html5beta.com)
+Repository: [https://github.com/ct-jyjntc/electerm](https://github.com/ct-jyjntc/electerm)
 
 <div align="center">
   <img src="https://github.com/electerm/electerm-resource/raw/master/static/images/electerm.gif", alt="" />
@@ -56,8 +47,8 @@ Online demo: [https://electerm-demo.html5beta.com](https://electerm-demo.html5be
 - Sync bookmarks/themes to github/gitee secret gist
 - Quick commands for repeatable SSH operations
 - SSH config import, jump hosts, and SSH tunnels
-- Deep link support: Open connections with URLs like `ssh://user@host:22` - see [Deep link support wiki](https://github.com/electerm/electerm/wiki/Deep-link-support)
-- Command line usage: check [wiki](https://github.com/electerm/electerm/wiki/Command-line-usage)
+- Deep link support: Open connections with URLs like `ssh://user@host:22`
+- Command line usage: use SSH URLs or CLI flags to open sessions
 
 ## Scope
 
@@ -74,35 +65,21 @@ This fork removes non-SSH product areas such as AI, MCP, RDP, VNC, Spice, Telnet
 
 ## Download
 
-- [Homepage](https://electerm.html5beta.com)
-- [sourceforge](https://sourceforge.net/projects/electerm.mirror/files/)
-- [github releases](https://github.com/electerm/electerm/releases)
+- [GitHub repository](https://github.com/ct-jyjntc/electerm)
+- [GitHub releases](https://github.com/ct-jyjntc/electerm/releases)
 
 ## Install
 
-- For Mac user: `brew install --cask electerm`
-- With snap: `sudo snap install electerm --classic`
-- For some Linux distribution, you can find it from OS default App store(Ubuntu, Deepin, Mint...).
-- For some linux OS, the `rpm`, `deb`, or `snap` release may not work, you can try the `tar.gz` or `.appImage` release.
-- For Windows users, you can install it from [windows store](https://www.microsoft.com/store/apps/9NCN7272GTFF), command-line installer [winget](https://github.com/microsoft/winget-cli) and [scoop](https://github.com/lukesampson/scoop) is also recommended:
+- Download artifacts from the fork release page:
 
-```powershell
-# winget https://github.com/microsoft/winget-cli
-winget install electerm.electerm
-
-# scoop https://github.com/lukesampson/scoop
-scoop bucket add dorado https://github.com/chawyehsu/dorado
-scoop install dorado/electerm
+```text
+https://github.com/ct-jyjntc/electerm/releases
 ```
 
-- Install from Debian repository (for Debian/Ubuntu-based systems) with `apt` command
-
-Check [https://electerm-repos.html5beta.com/deb](https://electerm-repos.html5beta.com/deb)
-
-- Install from npm
+- Install from npm if you publish your own package name:
 
 ```bash
-npm i -g electerm
+npm i -g sshterm
 
 # After installation, it will immediately open for windows and linux,
 # For macOS, it will open the drag to install panel
@@ -111,37 +88,29 @@ npm i -g electerm
 
 ## Known issues
 
-[https://github.com/electerm/electerm/wiki/Know-issues](https://github.com/electerm/electerm/wiki/Know-issues)
+[https://github.com/ct-jyjntc/electerm/wiki/Know-issues](https://github.com/ct-jyjntc/electerm/wiki/Know-issues)
 
 ## Troubleshoot
 
-[https://github.com/electerm/electerm/wiki/Troubleshoot](https://github.com/electerm/electerm/wiki/Troubleshoot)
+[https://github.com/ct-jyjntc/electerm/wiki/Troubleshoot](https://github.com/ct-jyjntc/electerm/wiki/Troubleshoot)
 
 ## Discussion
 
 [![Discord](https://img.shields.io/badge/Discord-Join-blue?logo=discord)](https://discord.gg/855W7g8EVd)
 
-[Discussion board](https://github.com/electerm/electerm/discussions)
+[Discussion board](https://github.com/ct-jyjntc/electerm/discussions)
 
 ![electerm-wechat-group-qr.jpg](https://electerm.html5beta.com/electerm-wechat-group-qr.jpg)
 
 ## Support
 
-Would love to hear from you, please tell me what you think, [submit an issue](https://github.com/electerm/electerm/issues), [Start a new discussion](https://github.com/electerm/electerm/discussions/new), [create/fix language files](https://github.com/electerm/electerm-locales) or create pull requests, all welcome.
+Would love to hear from you, please tell me what you think, [submit an issue](https://github.com/ct-jyjntc/electerm/issues), [Start a new discussion](https://github.com/ct-jyjntc/electerm/discussions/new), [create/fix language files](https://github.com/electerm/electerm-locales) or create pull requests, all welcome.
 
 ## Sponsor this project
 
-github sponsor
+Fork homepage:
 
-[https://github.com/sponsors/electerm](https://github.com/sponsors/electerm)
-
-kofi
-
-[https://ko-fi.com/zhaoxudong](https://ko-fi.com/zhaoxudong)
-
-wechat donate
-
-[![wechat donate](https://electerm.html5beta.com/electerm-wechat-donate.png)](https://github.com/electerm)
+[https://github.com/ct-jyjntc/electerm](https://github.com/ct-jyjntc/electerm)
 
 ## Dev
 
@@ -150,7 +119,7 @@ wechat donate
 # needs nodejs/npm, suggest using nvm to install nodejs/npm
 # with nodejs 22.x
 
-git clone git@github.com:electerm/electerm.git
+git clone git@github.com:ct-jyjntc/electerm.git
 cd electerm
 npm config set legacy-peer-deps true
 npm i
@@ -213,7 +182,7 @@ npm run pb
 
 ## Change log
 
-Visit [Releases](https://github.com/electerm/electerm/releases).
+Visit [Releases](https://github.com/ct-jyjntc/electerm/releases).
 
 ## Contact author
 

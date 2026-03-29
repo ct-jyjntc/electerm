@@ -30,12 +30,12 @@
   },
   "license": "MIT",
   "langugeRepo": "https://github.com/electerm/electerm-locales",
-  "privacyNoticeLink": "https://github.com/electerm/electerm/wiki/privacy-notice",
-  "knownIssuesLink": "https://github.com/electerm/electerm/wiki/Know-issues",
-  "sponsorLink": "https://electerm.html5beta.com/sponsor-electerm.html",
+  "privacyNoticeLink": "https://github.com/ct-jyjntc/electerm/wiki/privacy-notice",
+  "knownIssuesLink": "https://github.com/ct-jyjntc/electerm/wiki/Know-issues",
+  "sponsorLink": "https://github.com/ct-jyjntc/electerm",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electerm/electerm.git"
+    "url": "git+https://github.com/ct-jyjntc/electerm.git"
   },
   "author": {
     "name": "ZHAO Xudong",
@@ -43,10 +43,10 @@
     "url": "https://github.com/zxdong262"
   },
   "bugs": {
-    "url": "https://github.com/electerm/electerm/issues"
+    "url": "https://github.com/ct-jyjntc/electerm/issues"
   },
-  "homepage": "https://electerm.html5beta.com",
-  "releases": "https://github.com/electerm/electerm/releases",
+  "homepage": "https://github.com/ct-jyjntc/electerm",
+  "releases": "https://github.com/ct-jyjntc/electerm/releases",
   "engines": {
     "node": ">=16.0.0"
   },
